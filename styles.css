@@ -191,6 +191,111 @@ body {
     transform: translateX(4px);
 }
 
+/* How it works Section */
+.how-it-works-section {
+    padding: 2rem 0 6rem;
+    text-align: center;
+    animation: fadeIn 0.8s ease-out 0.2s forwards;
+    opacity: 0;
+}
+
+.section-title {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: 2.2rem;
+    color: var(--color-nav);
+    margin-bottom: 3.5rem;
+}
+
+.steps-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    position: relative;
+}
+
+@media (max-width: 800px) {
+    .steps-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2.5rem 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .steps-container {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+    }
+}
+
+.step-card {
+    background-color: transparent;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+}
+
+.step-icon {
+    width: 72px;
+    height: 72px;
+    background-color: #FFFFFF;
+    color: var(--color-amber);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    box-shadow: var(--shadow-md);
+    border: 2px solid var(--color-teal-light);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    z-index: 2;
+}
+
+.step-card:hover .step-icon {
+    transform: translateY(-5px) scale(1.05);
+    border-color: var(--color-amber);
+    box-shadow: 0 15px 25px -5px rgba(245, 158, 11, 0.2);
+}
+
+.step-icon svg {
+    width: 32px;
+    height: 32px;
+}
+
+.step-card h3 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1.15rem;
+    color: var(--color-nav);
+    margin-bottom: 0.75rem;
+}
+
+.step-card p {
+    color: var(--color-text);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    opacity: 0.8;
+}
+
+/* Connecting line for desktop */
+@media (min-width: 801px) {
+    .steps-container::after {
+        content: '';
+        position: absolute;
+        top: 36px; /* half of 72px icon */
+        left: 12.5%;
+        right: 12.5%;
+        height: 2px;
+        background: transparent;
+        border-top: 2px dashed var(--color-teal-light);
+        z-index: 1;
+    }
+}
+
 /* Cards Section */
 .cards-section {
     display: grid;
