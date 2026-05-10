@@ -1,0 +1,120 @@
+const express = require('express');
+const dotenv = require('dotenv');
+const { GoogleGenerativeAI, SchemaType } = require('@google/generative-ai');
+const path = require('path');
+
+// Load environment variables from .env.local
+dotenv.config({ path: '.env.local' });
+
+const app = express();
+const port = 8080;
+
+app.use(express.json());
+// Serve the HTML/CSS/JS files from this directory
+app.use(express.static(__dirname));
+
+// Initialize Gemini
+const apiKey = process.env.GEMINI_API_KEY;
+let genAI = null;
+if (apiKey && apiKey !== 'indsæt_din_nøgle_her') {
+    genAI = new GoogleGenerativeAI(apiKey);
+}
+
+const SYSTEM_PROMPT = `Du er en didaktisk analytiker. Analyser en didaktisk handling ud fra to akser. AKSE X (Epistemologi): -10=Øjets. +10=Håndens. AKSE Y (Friktion): -10=Glat. +10=Friktion. Returner KUN JSON i dette format: {"x":[int],"y":[int],"begrundelse":"[én sætning]"}`;
+
+app.post('/api/analyze', async (req, res) => {
+    try {
+        if (!genAI) {
+            return res.status(500).json({ error: "Gemini API nøgle mangler i .env.local" });
+        }
+
+        const { text } = req.body;
+        if (!text) {
+            return res.status(400).json({ error: "Manglende tekst-input." });
+        }
+
+        const model = genAI.getGenerativeModel({
+            model: "gemini-2.5-flash",
+            systemInstruction: SYSTEM_PROMPT,
+            generationConfig: {
+                responseMimeType: "application/json",
+            }
+        });
+
+        const result = await model.generateContent(text);
+        const responseText = result.response.text();
+        
+        // Parse JSON safely
+        const parsedData = JSON.parse(responseText);
+        
+        // Ensure format
+        if (typeof parsedData.x !== 'number' || typeof parsedData.y !== 'number' || !parsedData.begrundelse) {
+            throw new Error("Invalid format fra Gemini");
+        }
+
+        res.json(parsedData);
+    } catch (error) {
+        console.error("Fejl ved Gemini kald:", error);
+        res.status(500).json({ error: "Kunne ikke analysere kortet. Prøv igen." });
+    }
+});
+
+const FEEDBACK_SYSTEM_PROMPT = `Du er en empatisk, skarp og praksisnær pædagogisk vejleder, der giver skriftlig feedback til en kollega på deres undervisningsdesign.
+
+STRIKSE REGLER FOR DIT SPROG:
+
+Du må ALDRIG bruge ordene kvadrant, koordinat, beregnet, epistemologisk, tyngdepunkt, eller friktion.
+
+Sproget skal være nede på jorden, anerkendende og direkte.
+
+Ingen sludrende AI-indledninger. Start direkte med overskriften.
+
+STRUKTUR FOR DIT SVAR (Brug disse 3 overskrifter i fed):
+
+**Dit didaktiske fokus:**
+Oversæt den underliggende kategori til praksis i klasserummet. Flet 2-3 af lærerens valgte kort ind. Påpeg spændende udfordringer, hvis de har valgt meget forskellige kort.
+
+**Teknologien i praksis:**
+Hvordan spiller deres valgte teknologi sammen med deres didaktiske mål? Skriv om elevernes faktiske brug af teknologien.
+
+**Spørgsmål til refleksion:**
+Afslut med præcis 2 skarpe, praksisnære spørgsmål som bullet points.`;
+
+app.post('/api/generate-feedback', async (req, res) => {
+    try {
+        if (!genAI) {
+            return res.status(500).json({ error: "Gemini API nøgle mangler i .env.local" });
+        }
+
+        const { cards, quadrant, techRole } = req.body;
+        
+        if (!cards || !quadrant || !techRole) {
+            return res.status(400).json({ error: "Manglende data til feedback-generering." });
+        }
+
+        const userPrompt = `
+Lærerens valg af Teknologirolle: ${techRole}
+Beregnet Epistemologisk Kvadrant: ${quadrant}
+Udvalgte didaktiske handlingskort i forløbet:
+${cards.map(c => "- " + c).join('\n')}
+
+Generer din feedback baseret på ovenstående data i Markdown-format.`;
+
+        const model = genAI.getGenerativeModel({
+            model: "gemini-2.5-flash",
+            systemInstruction: FEEDBACK_SYSTEM_PROMPT
+        });
+
+        const result = await model.generateContent(userPrompt);
+        const markdownFeedback = result.response.text();
+        
+        res.json({ feedback: markdownFeedback });
+    } catch (error) {
+        console.error("Fejl ved generering af feedback:", error);
+        res.status(500).json({ error: "Kunne ikke generere feedback. Prøv igen." });
+    }
+});
+
+app.listen(port, () => {
+    console.log(`🚀 Epistemologisk Værksted server kører på http://localhost:${port}`);
+});

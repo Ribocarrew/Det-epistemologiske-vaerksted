@@ -1,0 +1,477 @@
+# Det Epistemologiske Værksted
+## Masterspecifikation
+**Teori · Kortbibliotek · Teknologilag · Feedback-matrix · Design**
+
+---
+
+**Jacob Witt-Larsen**
+MIL-masterprojekt · Byskolen, Nakskov · Lolland Kommune · 2026
+Supervisor: Francesco Caviglia
+
+---
+
+## 1. Formål og problemstilling
+
+Det Epistemologiske Værksted er et digitalt refleksionsværktøj der synliggør læreres tavse epistemologiske arv. Formålet er ikke at evaluere lærere eller rangordne undervisningspraksisser. Formålet er at skabe betingelserne for *reflection-on-action* (Schön, 1983/2013): at gøre det implicitte eksplicit og det automatiske til et bevidst valg.
+
+Projektets centrale tese: lærere starter ikke fra et neutralt sted. De bærer en kropsliggjort forforståelse af hvad viden er og hvordan den opstår — nedarvet gennem årtiers deltagelse i bestemte epistemologiske kulturer. Denne arv reproducerer sig i det didaktiske design uden at læreren nødvendigvis er bevidst om det.
+
+> **Projektet bidrager med begrebet *epistemologisk design* som analytisk og refleksivt greb. Fokus flyttes fra teknologi som løsning til undervisning som rammesættende epistemologisk praksis.**
+
+**Problemformulering:** Hvordan fungerer læreren som epistemologisk designer i en digitaliseret skole, og hvordan kommer dette til udtryk i læringsdesign der fremmer henholdsvis reproduktion og synlighed (øjets epistemologi) eller handling, friktion og dømmekraft (håndens epistemologi)?
+
+---
+
+## 2. Teoretisk fundament
+
+Det teoretiske fundament er organiseret i tre lag: et vidensfilosofisk grundlag (Polanyi, Brinkmann & Tanggaard, Dewey, Sfard), et professionsperspektiv (Schön, Lund, Lortie, Biesta) og et teknologifilosofisk perspektiv (Fawns, Winner, Bijker, MacKenzie, Dalsgaard).
+
+### 2.1 Polanyi — den tavse dimension
+
+Michael Polanyi (*The Tacit Dimension*, 1966) leverer projektets grundbegreb: tavs viden. *We can know more than we can tell.* Al viden indeholder et proksimalt led af uartikulerede elementer vi ikke kan eksplicitere, men som vi bruger som støtte for at rette opmærksomheden mod en samlet entitet.
+
+For lærerprofessionen: den tavse arv sidder ikke i sproget, men i kroppen og handlingen. Læreren ved — på Polanyis vis — hvad god undervisning er. Men den viden er skabt gennem årtiers deltagelse i bestemte epistemologiske kulturer og opererer som automatik.
+
+**Designkonsekvens:** Kortsorteringen tvinger læreren til at eksplicitere valg der normalt forbliver implicitte. Det proksimale led gøres til et fokalt objekt.
+
+### 2.2 Brinkmann & Tanggaard — øjets og håndens epistemologi
+
+Svend Brinkmann og Lene Tanggaard (*An Epistemology of the Hand*, i Gibbs, red., Springer, 2013, s. 147–163) identificerer to dominerende videnssyn i vestlig uddannelsestænkning.
+
+**Øjets epistemologi:** viden er korrekt repræsentation — spatial, færdig, identificerbar. Eleven er tilskuer.
+
+**Håndens epistemologi:** viden opstår i transaktionen mellem organisme og miljø — temporal, skabt, kontingent. Eleven er epistemisk aktør.
+
+De to epistemologier udgør X-aksen i matricen. De behandles som poler på et spektrum (Sfard, 1998) — ikke som binær modstilling. Håndens epistemologi er ikke målet for al undervisning. Målet er bevidsthed om valget.
+
+**Designkonsekvens:** X-aksen operationaliserer spektret fra –10 (Øjet) til +10 (Hånden). Kortenes X-koordinater er tildelt ud fra denne teoretiske definition.
+
+### 2.3 Dewey — to roller i ét projekt
+
+John Dewey optræder i to arkitektonisk adskilte roller.
+
+#### Dewey som epistemologisk fundament
+
+*Experience and Education* (1938a) formulerer en transaktionel erkendelsesteori: erkendelse er forholdet mellem vores handlinger og deres konsekvenser. Tilskuerteorien om erkendelse (*spectator theory of knowledge*) afvises aktivt. Viden overleveres ikke — den opstår i transaktionen.
+
+#### Dewey som inquiry-logik (Y-aksen)
+
+Den ubestemte situation (*indeterminate situation*, 1938b) er tilstanden der driver refleksion: noget er forstyrret, ukomplet, i strid med sig selv. Uden en ubestemt situation er der ingen grund til inquiry — vanen reproduceres.
+
+**Designkonsekvens:** Y-aksen operationaliserer Deweys inquiry-logik fra –10 (Glat) til +10 (Friktion). Kompassets refleksionsspørgsmål er formuleret i Deweys begrebssæt: er der designet en ubestemt situation?
+
+### 2.4 Sfard — spektrum frem for dikotomi
+
+Anna Sfards *On Two Metaphors for Learning and the Dangers of Choosing Just One* (1998) er afgørende for at undgå en normativ faldgrube. Sfard identificerer tilegnelsesmetaforen og deltagermetaforen — begge nødvendige. At vælge kun én er pædagogisk dogmatisme. Koordinatsystemet har intet rigtigt hjørne.
+
+### 2.5 Schön — reflection-on-action
+
+Donald Schön (*The Reflective Practitioner*, 1983; *Educating the Reflective Practitioner*, 1987/2013) skelner mellem reflection-in-action og reflection-on-action. Værkstedet sigter mod det sidste: et forberedelsesværktøj der aktiverer reflection-on-action i planlægningsfasen.
+
+Schön viser at erfarnes viden-i-praksis kan blive stadigt mere tavs og automatisk uden mødet med overraskelse eller modsigelse. Et refleksionsværktøj skaber sin værdi ved at forstyrre den automatiske selvfølgelighed.
+
+**Designkonsekvens:** Diamantsorteringens kognitive modstand er intentionel. Den forstyrrelse er ikke en fejl i designet — den er designet.
+
+### 2.6 Dalsgaard — reflective friction
+
+Peter Dalsgaard (*Reflective Friction in Generative AI*, Aarhus '25, 2025) introducerer begrebet *reflective friction*: bevidste forstyrrelser der bremser automatisk behandling og skaber rum for deliberat tænkning. Dalsgaard trækker på Kahnemans System 1/System 2-distinktion: digitale systemer optimeret for fluency fremmer System 1. Reflective friction er det modsatte princip.
+
+**Designkonsekvens:** Hele brugerrejsen er bygget som trinvis friktionseskalering: kortvalg (maks. 9) → diamantsortering (differentielle vægte) → teknologirollevalg → Kompassets diagnose.
+
+### 2.7 Fawns — entangled pedagogy
+
+Tim Fawns (*An Entangled Pedagogy*, 2022) afviser de to dominerende illusioner: *technology-first* og *pedagogy-first*. Teknologi og pædagogik er sammenfiltrede — *entangled*. Ingen af dem driver den anden. Den samme iPad kan producere øjets eller håndens epistemologi afhængigt af den epistemologiske kontekst den bruges i.
+
+**Designkonsekvens:** Kortbiblioteket er teknologi-agnostisk. Kortene beskriver epistemologiske mønstre, ikke aktiviteter eller redskaber. Trin 3.5 spørger eksplicit til teknologiens rolle.
+
+### 2.8 Winner, Bijker & MacKenzie — teknologiens indlejrede logik
+
+Tre teoretikere fra *Science and Technology Studies* (STS) tilføjer det lag Fawns ikke fuldt udfolder: at specifikke artefakter bærer indlejrede brugslogikker der er socialt og historisk konstruerede. Modsætningen til Fawns er tilsyneladende: Fawns er rammen, Winner/Bijker/MacKenzie er mekanismen. De er ikke konkurrenter.
+
+#### Langdon Winner — artefakters politik
+
+*Do Artifacts Have Politics?* (Daedalus, 109(1), 1980): teknologier er ikke politisk neutrale. De er designet ind i en social og institutionel logik og reproducerer den. Kahoot er designet med quiz-logik, synlig rangordning og hastighed som parameter — det er epistemologisk ladede designvalg.
+
+📖 **Læsning:** Winner (1980), Daedalus 109(1), 121–136 [15 sider — start her]. Winner (1986), *The Whale and the Reactor*, kap. 1.
+
+#### Wiebe Bijker — social konstruktion og stabilisering
+
+SCOT — Social Construction of Technology (Bijker & Pinch, 1984). Centrale begreber: *fortolkningsmæssig fleksibilitet* og *lukning og stabilisering*. Over tid lukker én fortolkning sig om artefaktet. LMS'et og Kahoot er stabiliserede teknologier med IR-graviterende dominerende fortolkning. At bruge dem til TB kræver aktiv modstand mod stabiliseret brugslogik.
+
+📖 **Læsning:** Bijker (1995), *Of Bicycles, Bakelites, and Bulbs*, kap. 1. Bijker, Hughes & Pinch (1987), *The Social Construction of Technological Systems*, MIT Press.
+
+#### Donald MacKenzie — social shaping
+
+*The Social Shaping of Technology* (MacKenzie & Wajcman, red., 2. udg. 1999): teknologi er socialt formet fra design til brug — og former tilbage. Skoleinstitutionen har socialt formet sine teknologier til at passe ind i sin eksisterende epistemologiske logik.
+
+📖 **Læsning:** MacKenzie & Wajcman (1999), indledningskapitlet — ca. 25 sider.
+
+> **Fawns beskriver den entanglede virkelighed. Winner og Bijker forklarer hvorfor det kræver aktiv modstand at bruge en stabiliseret teknologi mod dens dominerende fortolkning. Polanyi binder det hele: læreren er ikke bevidst om at hun følger teknologiens affordance — det er præcis tavs viden i teknologisk form.**
+
+### 2.9 Biesta — uddannelsens tre dimensioner
+
+Gert Biesta (*God uddannelse i målingens tidsalder*, 2011) skelner mellem kvalifikation, socialisering og subjektifikation. Øjets epistemologi er strukturelt alignet med kvalifikationsparadigmet. Håndens epistemologi åbner for subjektifikation: eleven som selvstændig aktør med handlekraft og dømmekraft.
+
+### 2.10 Lund & Lortie — lærerprofessionens tavse arv
+
+Lea Lunds *Didaktisk Refleksion* (Dafolo, 2020) dokumenterer i dansk kontekst: læreres viden-i-praksis er tæt forbundet med tavse overbevisninger og indlejrede handlingsteorier der lever i kroppen — ikke i sproget. Dan Lortie (*Schoolteacher*, 1975) beskriver *apprenticeship of observation*: lærere internaliserer den dominerende epistemologi som normalform gennem tusindvis af observationstimer som elever.
+
+---
+
+## 3. Den Epistemologiske Friktions-Matrice
+
+Et 2×2-koordinatsystem med to analytiske akser. X-aksen: Øjets epistemologi (–10) ↔ Håndens epistemologi (+10). Y-aksen: Glat design (–10) ↔ Friktionsdesign (+10). Tyngdepunktet beregnes som vægtet centroid af de ni sorterede kort.
+
+| | **ØJET** | **HÅNDEN** |
+|---|---|---|
+| **FRIKTION** | **Adaptiv Træning** · Kritisk analyse, argumentation, kildevurdering. Receptivt videnssyn med friktionsskabende design. Eleven undersøger verden; hun skaber den endnu ikke. | **Det Transformative Brud** · Epistemisk aktørskab i åben, ubestemt situation. Iterativt, autentisk, selvstændigt valg. Potentialet for reel erkendelsesmæssig transformation er størst her. |
+| **GLAT** | **Instrumentel Reproduktion** · Overlevering af færdige svar. Receptivt videnssyn, afklaret situation. Historisk dominerende konfiguration. Tavs arv som drivkraft. | **Skin-Aktivitet** · Aktivitet og produktion uden reel friktion. Ser transformativt ud — er det ikke. Den epistemologisk farligste konfiguration. |
+
+De fire kvadranter er analytiske positioner, ikke normative kategorier. Koordinatsystemet har intet rigtigt hjørne.
+
+---
+
+## 4. Kortbiblioteket — 36 kort
+
+36 kort fordelt med præcis 9 per kvadrant. Kortene er teknologi-agnostiske og gælder på tværs af alle fag, alderstrin og teknologier. Hvert kort vises med kortekst og kortfattet teoretisk begrundelse.
+
+---
+
+### Kvadrant IR — Instrumentel Reproduktion · Øjet + Glat
+
+**Kort 1** — *Viden præsenteres som færdige, korrekte svar der skal huskes og genkendes*
+Kernebeskrivelsen af øjets epistemologi (Brinkmann & Tanggaard, 2013): viden er korrekt repræsentation der identificeres, ikke skabes. Teknologi- og fagneutral. Koordinat: (–8, –8)
+
+**Kort 2** — *Eleven er primært tilskuer eller lytter — læreren bærer den aktive rolle*
+Lorties (1975) apprenticeship of observation: den asymmetriske rollefordeling internaliseres som normalform. 'Primært' signalerer analytisk nuance frem for absolut beskrivelse. Koordinat: (–7, –7)
+
+**Kort 3** — *Opgaven har ét rigtigt svar, og metoden til at nå det er fastlagt på forhånd*
+Operationaliserer Deweys (1938b) afklarede situation. Dobbeltbestemmelsen — lukket svar OG fastlagt metode — er analytisk afgørende. Koordinat: (–6, –8)
+
+**Kort 4** — *Teknologien bruges til at vise, afspille eller distribuere fagligt indhold*
+Fawns (2022): teknologiens epistemologiske rolle afhænger af konteksten. Bijker (1995): LMS og whiteboard er stabiliserede teknologier med denne fortolkning som dominerende. Koordinat: (–8, –6)
+
+**Kort 5** — *Eleven bekræfter eller gengiver det, der allerede er præsenteret*
+Sfards (1998) tilegnelsesmetafor i sin reneste form: erkendelsesretningen er reproduktiv. Dækker bredt fra multiple choice til skriftlig opsummering. Koordinat: (–7, –6)
+
+**Kort 6** — *Vurderingen handler om, om svaret er korrekt — ikke om processen bag*
+Deweys kritik af tilskuerteorien manifesteret i vurderingspraksis. Biesta (2011): kvalifikationsparadigmets dominans. Koordinat: (–6, –7)
+
+**Kort 7** — *Læreren definerer på forhånd, hvilken viden der er relevant at tilegne sig*
+Vidensselektion som magthandling (Biesta, 2011). Winner (1980): institutionaliserede teknologier forstærker denne selektion tavst. Koordinat: (–8, –5)
+
+**Kort 8** — *Forløbet bevæger sig mod en bestemt, foruddefineret faglig konklusion*
+Modsætningen til Deweys inquiry (1938b): en undersøgelse der kender sin konklusion er ikke undersøgelse — det er demonstration. Koordinat: (–5, –8)
+
+**Kort 9** — *Læring forstås implicit som ophobning — jo mere eleven ved, des bedre*
+Sfards (1998) tilegnelsesmetafor som designlogik, ikke eksplicit instruktion. 'Implicit' er afgørende — det handler om hvad designet kommunikerer. Koordinat: (–7, –5)
+
+---
+
+### Kvadrant AT — Adaptiv Træning · Øjet + Friktion
+
+**Kort 10** — *Eleven analyserer og vurderer information fra to eller flere modstridende kilder*
+Kildeanalyse som klassisk AT-aktivitet: analytisk aktiv elev, receptivt videnssyn. 'Modstridende' sikrer ægte analytisk friktion. Koordinat: (–6, 7)
+
+**Kort 11** — *Eleven argumenterer for et standpunkt og udfordres aktivt i sin begrundelse*
+AT's kerneform. 'Udfordres aktivt' er afgørende — uden modstand er argumentation blot reproduktion i ny form. Koordinat: (–5, 7)
+
+**Kort 12** — *Eleven stiller spørgsmål til præsenteret viden og leder selvstændigt efter svar*
+Overgangen fra IR til AT. 'Selvstændigt' signalerer AT, 'præsenteret viden' holder videnssynet receptivt. Koordinat: (–6, 6)
+
+**Kort 13** — *Eleven afkoder bias, perspektiv eller skjulte antagelser i et materiale*
+Mediepædagogikkens kernekompetence operationaliseret epistemologisk. Lund (2020): den type refleksivitet der kendetegner professionel lærertænkning. Koordinat: (–7, 7)
+
+**Kort 14** — *Eleven sammenligner og rangordner løsninger ud fra kriterier hun selv formulerer*
+Epistemisk autonomi i vurderingshandlingen. Stadig AT fordi vurderingen sker i forhold til eksisterende løsninger. Koordinat: (–5, 6)
+
+**Kort 15** — *Eleven formulerer selvstændigt undersøgelsesspørgsmål til et emne der er præsenteret*
+Spørgsmålsformulering som epistemisk handling — central i Deweys inquiry (1938b). AT fordi emnet er givet udefra. Koordinat: (–4, 6)
+
+**Kort 16** — *Eleven diskuterer og udfordrer medstuderendes fortolkninger af et fagligt indhold*
+Wengers (1998) forhandling af mening. AT: det faglige indhold er givet. 'Udfordrer' kræver ægte epistemisk friktion. Koordinat: (–6, 8)
+
+**Kort 17** — *Eleven vurderer kilders troværdighed og metode — ikke blot deres indhold*
+Metakritik: at vurdere hvordan en kilde producerer viden. Højere orden AT der nærmer sig epistemologisk refleksivitet. Koordinat: (–7, 8)
+
+**Kort 18** — *Eleven forbinder faglig viden med egne erfaringer og stiller kritiske spørgsmål til sammenhængen*
+Deweys pragmatiske erfaringsbegreb (1938a): erkendelse i transaktionen. AT fordi fagviden er givet — men eleven kobler kritisk og udfordrer koblingen. Koordinat: (–5, 5)
+
+---
+
+### Kvadrant SA — Skin-Aktivitet · Hånd + Glat
+
+**Kort 19** — *Eleven producerer et produkt, men fremgangsmåden er fastsat trin for trin*
+SA's ikoniske mønster. Fraværet af friktion skyldes at vejen er kortlagt. Bijker: produktionsteknologier er designet ind i denne logik. Koordinat: (6, –7)
+
+**Kort 20** — *Teknologien bruges som produktionsværktøj, men problemet er allerede løst*
+Fawns (2022) + MacKenzie (1999): teknologien leverer produktionskapacitet, men den epistemologiske struktur er IR-agtig. Koordinat: (7, –6)
+
+**Kort 21** — *Aktiviteten er kreativ, men der er ingen reel faglig modstand eller åbenhed*
+Det farligste SA-mønster. Dalsgaard (2025): kreativitet uden friktion er underholdning, ikke erkendelse. Koordinat: (7, –5)
+
+**Kort 22** — *Eleven udfolder en given løsning frem for at finde sin egen*
+Brinkmann & Tanggaard (2013): udfoldelse er produktivt arbejde inden for en given ramme. 'Frem for at finde sin egen' peger på det fraværende. Koordinat: (6, –6)
+
+**Kort 23** — *Eleven samarbejder om opgaven, men roller og arbejdsdeling er fastsat af læreren*
+Wenger (1998): koordination snarere end forhandling af mening. Gruppen arbejder, men den epistemiske struktur er fastsat udefra. Koordinat: (5, –5)
+
+**Kort 24** — *Eleven dokumenterer et forløb eller produkt frem for at undersøge et problem*
+Dokumentationsopgaver er SA-gennemgående i digitaliseret undervisning. Dewey (1938b): at beskrive hvad man ser er ikke inquiry. Koordinat: (6, –4)
+
+**Kort 25** — *Eleven vælger mellem foruddefinerede muligheder — selvstændigheden er tilsyneladende, ikke reel*
+Falsk autonomi. Polanyi (1966): eleven bekræfter hvad læreren har defineret. Winner (1980): teknologier kan iscenesætte valg der ikke reelt er valg. Koordinat: (5, –6)
+
+**Kort 26** — *Forløbet prioriterer et gennemarbejdet slutprodukt over den faglige tænkning undervejs*
+Biesta (2011): kvalifikationsparadigmets dominans. 'Prioriterer' peger på designlogik, ikke eksplicit instruktion. Koordinat: (7, –4)
+
+**Kort 27** — *Teknologien bruges til at præsentere en konklusion, der er formuleret på forhånd*
+Fawns (2022): teknologien er entangled med overleveringslogikken. Bijker: præsentationsteknologier bærer denne fortolkning som stabiliseret norm. Koordinat: (6, –5)
+
+---
+
+### Kvadrant TB — Det Transformative Brud · Hånd + Friktion
+
+**Kort 28** — *Eleven møder et problem, hvor hverken svar eller metode er givet på forhånd*
+TB's definitionskort. Deweys ubestemte situation (1938b). Dobbeltbestemmelsen adskiller fra AT og SA. Betingelsen for ægte inquiry. Koordinat: (7, 8)
+
+**Kort 29** — *Eleven producerer ny viden, der ikke eksisterede i det materiale hun modtog*
+Brinkmann & Tanggaard (2013): håndens epistemologi producerer viden som temporal aktivitet. 'Ikke eksisterede i det materiale' kræver det genuint generative. Koordinat: (8, 8)
+
+**Kort 30** — *Processen er iterativ — eleven reviderer, fejler og prøver igen*
+Schön (1983): i mødet med det uventede opstår erkendelse. Fejl er planlagt læringsstruktur, ikke undladelse. Koordinat: (7, 7)
+
+**Kort 31** — *Produktet eksisterer for et virkeligt publikum — ikke kun for læreren*
+Autenticitet som epistemologisk princip. Biesta (2011): subjektifikation kræver tilstedeværelse i verden. 'Ikke kun for læreren' er kortets analytiske kerne. Koordinat: (8, 7)
+
+**Kort 32** — *Eleven træffer reelle faglige valg, der ændrer udfaldet af forløbet*
+Epistemisk aktørskab. 'Reelle valg' adskiller fra SA's tilsyneladende autonomi (kort 25): konsekvenserne er ægte. Dewey (1938a): erkendelse i transaktionen. Koordinat: (7, 9)
+
+**Kort 33** — *Teknologien bruges som formbart materiale — eleven undersøger, hvad det kan*
+Fawns (2022) + Brinkmann & Tanggaard (2013): teknologien som epistemologisk medium. 'Formbart materiale' er en håndværksmetafor der knytter an til laugenes epistemologi. Koordinat: (8, 6)
+
+**Kort 34** — *Eleven tager selvstændig stilling til, hvilken retning undersøgelsen skal gå*
+Epistemisk autonomi på metaniveauet. Dewey (1938b): at identificere og formulere problemet er selv en erkendelseshandling. Løbende, procesuel autonomi. Koordinat: (6, 8)
+
+**Kort 35** — *Forløbet er designet til at producere overraskelse — eleven møder det uventede*
+Dalsgaard (2025): reflective friction. At møde det modsigende er betingelsen for genuine indsigt. 'Designet til' markerer intentionaliteten: det er et bevidst pædagogisk valg. Koordinat: (7, 8)
+
+**Kort 36** — *Eleven tager medansvar for at definere, hvad der tæller som et godt svar i dette forløb*
+Biesta (2011) om subjektifikation: at deltage i at definere vurderingsstandarden er en epistemisk handling. Det mest radikale kort i biblioteket. Koordinat: (9, 7)
+
+---
+
+## 5. Trin 3.5 — Teknologilagets rolle
+
+Mellem Spejlet (trin 2) og Kompasset (trin 3) introduceres et enkelt valg: *Hvilken rolle spiller teknologien i dette forløb?*
+
+**Designprincip:** Systemet tildeler ikke teknologien en epistemologisk gravitation — det spørger læreren og lader hende navngive entanglingen selv. Det er Fawns operationaliseret: teknologi og pædagogik er sammenfiltrede, og det er læreren der skal afdække flitringen.
+
+| Valg | Betegnelse | Beskrivelse |
+|------|-----------|-------------|
+| **A** | Teknologien distribuerer og synliggør | Teknologien bruges primært til at vise, afspille eller dele fagligt indhold. Læreren eller materialet er afsender. Eleven er modtager. Bijker (1995): LMS og whiteboard er stabiliserede teknologier med denne fortolkning som dominerende. |
+| **B** | Teknologien er produktionsredskab | Eleven producerer med teknologien inden for en given struktur. Metoden er fastsat — teknologien leverer produktionskapacitet uden åben problemstilling. MacKenzie (1999): typisk stabiliseret brugslogik i skolen. |
+| **C** | Teknologien er åbent undersøgelsesrum | Eleven bruger teknologien som formbart materiale eller åbent sandkassemiljø. Hvad teknologien kan gøre i dette forløb er selv et undersøgelsesspørgsmål. Winner (1980): dette bryder med teknologiens dominerende fortolkning. |
+| **D** | Forløbet er primært analogt | Teknologi spiller ingen central rolle. Erkendelseshandlingerne foregår uden digital mediering. Spørgsmål til læreren: hvad ville digital teknologi tilføje — og hvad ville den tage? |
+
+---
+
+## 6. Kompassets feedback-matrix
+
+Kombinationen af kvadrant og teknologirolle (A–D) genererer specifik feedback. 16 kombinationer — nøglekombinationerne:
+
+| Kvadrant | Teknologi | Kernebudskab |
+|---------|-----------|-------------|
+| IR | A | Teknologi og epistemologi trækker i samme retning. Det kan være bevidst kohærens — eller ubevidst forstærkning af den tavse arv. Kahoot og LMS er designet til denne konfiguration (Bijker, 1995). Er det et valg eller en default? |
+| IR | B | Du producerer med teknologien, men epistemologisk er forløbet reproduktivt. Hvad ville ske, hvis produktet ikke havde en fastsat skabelon? |
+| IR | C | Spænding: du bruger teknologien som åbent rum, men de epistemologiske mønstre peger mod reproduktion. Er teknologiens åbenhed reel — eller iscenesætning? |
+| AT | A | Du distribuerer men designer for kritisk tænkning. Kan teknologien selv blive genstand for kildeanalysen frem for blot at distribuere den? |
+| AT | C | Teknologi som åbent rum koblet med AT-epistemologi: epistemologisk kohærent og stærk konfiguration. |
+| SA | B | SA's typiske konfiguration: produktionsredskab med fastsat metode. Bijker (1995): dette er teknologiens stabiliserede brugslogik i skolen. Er kreativiteten reel — eller iscenesætning? |
+| SA | C | Teknologien signalerer transformation, epistemologien leverer det ikke. SA's farligste form. Hvor er den kognitive modstand i dette forløb? |
+| TB | B | Produktionsredskab i åben situation — potentielt stærkt. Men sikre dig at produktionsmetoden er åben, ikke blot produktet. |
+| TB | C | Den mest epistemologisk kohærente TB-konfiguration: åben teknologi i åben undersøgelsessituation. Eleven er epistemisk aktør med formbart materiale. Kravene til didaktisk opmærksomhed er tilsvarende høje. |
+| TB | D | Transformativ epistemologi uden digital teknologi — sjældent og stærkt. Hvad er det ved det analoge der muliggør denne konfiguration? |
+
+---
+
+## 7. Brugerrejsen — fem trin
+
+### Trin 0: Intro
+Læreren angiver valgfrit titlen på det forløb de planlægger. Det forankrer kortvalget i en konkret kontekst og reducerer abstraktion.
+
+### Trin 1: Kortbiblioteket
+36 prædefinerede kort præsenteres grupperet efter kvadrant. Læreren vælger præcis 9. Udvælgelsen er den første friktionshandling: man kan ikke vælge alle. Et åbent inputfelt tillader egne kort analyseret af Gemini AI via den teoretiske system-prompt.
+
+**Gemini-system-prompt:** Modellen instrueres udelukkende i at analysere den beskrevne handling ud fra de to teoretiske akser. Output: JSON med x, y og én analytisk begrundelsessætning. Modellen er analytisk redskab, ikke normativ dommer.
+
+### Trin 2: Spejlet
+De 9 valgte kort placeres i diamantsorteringen (1-2-3-2-1) med differentielle vægte: ×3, ×2, ×1, ×½, ×0. Toppen vejer tre gange midten. Instruction-boksen opdaterer sig dynamisk i tre tilstande: neutral → aktiv → komplet.
+
+### Trin 3.5: Teknologirollen
+Læreren vælger A, B, C eller D. Valget gemmes i state og påvirker Kompassets feedback. Tager 10–15 sekunder.
+
+### Trin 3: Kompasset
+Tyngdepunktet beregnes som vægtet centroid. Resultatet plottes i matricen med animeret SVG-prik. Feedback genereres baseret på kvadrant + teknologirolle. To refleksionsspørgsmål vises. Komplet sorteringsoversigt vises nedenfor matricen.
+
+---
+
+## 8. Teknisk arkitektur
+
+### 8.1 Vægtet centroid
+
+```
+Diamantvægte: [3, 2, 2, 1, 1, 1, 0.5, 0.5, 0]
+
+X_centroid = Σ(vægt_i × x_i) / Σ(vægt_i)
+Y_centroid = Σ(vægt_i × y_i) / Σ(vægt_i)
+
+Kvadrant:
+  x < 0 && y < 0  →  IR
+  x < 0 && y ≥ 0  →  AT
+  x ≥ 0 && y < 0  →  SA
+  x ≥ 0 && y ≥ 0  →  TB
+```
+
+### 8.2 Gemini AI system-prompt
+
+```
+Du er en didaktisk analytiker. Analyser en didaktisk handling ud fra to akser.
+AKSE X (Epistemologi): -10=Øjets (viden overleveres passivt). +10=Håndens (viden opstår via handling).
+AKSE Y (Friktion): -10=Glat (svar+metode kendes). +10=Friktion (ubestemt, kræver undersøgelse).
+Returner KUN JSON: {"x":[int],"y":[int],"begrundelse":"[én sætning]"}
+```
+
+### 8.3 Koordinatoversigt — alle 36 kort
+
+| # | Q | X | Y | # | Q | X | Y |
+|---|---|---|---|---|---|---|---|
+| 1 | IR | –8 | –8 | 19 | SA | 6 | –7 |
+| 2 | IR | –7 | –7 | 20 | SA | 7 | –6 |
+| 3 | IR | –6 | –8 | 21 | SA | 7 | –5 |
+| 4 | IR | –8 | –6 | 22 | SA | 6 | –6 |
+| 5 | IR | –7 | –6 | 23 | SA | 5 | –5 |
+| 6 | IR | –6 | –7 | 24 | SA | 6 | –4 |
+| 7 | IR | –8 | –5 | 25 | SA | 5 | –6 |
+| 8 | IR | –5 | –8 | 26 | SA | 7 | –4 |
+| 9 | IR | –7 | –5 | 27 | SA | 6 | –5 |
+| 10 | AT | –6 | 7 | 28 | TB | 7 | 8 |
+| 11 | AT | –5 | 7 | 29 | TB | 8 | 8 |
+| 12 | AT | –6 | 6 | 30 | TB | 7 | 7 |
+| 13 | AT | –7 | 7 | 31 | TB | 8 | 7 |
+| 14 | AT | –5 | 6 | 32 | TB | 7 | 9 |
+| 15 | AT | –4 | 6 | 33 | TB | 8 | 6 |
+| 16 | AT | –6 | 8 | 34 | TB | 6 | 8 |
+| 17 | AT | –7 | 8 | 35 | TB | 7 | 8 |
+| 18 | AT | –5 | 5 | 36 | TB | 9 | 7 |
+
+---
+
+## 9. Designspecifikation
+
+### 9.1 Designfilosofi
+
+> **Notesbog · Værksted · Kontrolpanel.** Roligt, varmt og præcist. Ikke tech-startup. Amber som handlingssignal — teal som struktur og autoritet.
+
+### 9.2 Farvepalette
+
+| Farve | Hex | Brug |
+|-------|-----|------|
+| Mørk teal | `#155E5E` | Navigation, H1, fokus |
+| Teal | `#1F7A7A` | H2/H3, sekundærknap, TB-farve |
+| Lys teal | `#D1EEEE` | Kortgrænser, progressbar, skillelinjer |
+| Amber | `#F59E0B` | Primærknap, aktiv tilstand, ×3 badge |
+| Baggrund | `#F7F3EF` | Creme frem for kold hvid |
+| Tekst | `#2B2B2B` | Al brødtekst |
+| Sekundær | `#6B7280` | Hints, metadata, labels |
+
+**Kvadrantfarver:**
+
+| Kvadrant | Fyld | Kant | Tekst |
+|---------|------|------|-------|
+| IR | `#FEF9C3` | `#CA8A04` | `#713F12` |
+| AT | `#D1FAE5` | `#059669` | `#064E3B` |
+| SA | `#EDE9FE` | `#7C3AED` | `#3B0764` |
+| TB | `#CCFBF1` | `#1F7A7A` | `#134E4A` |
+
+### 9.3 Typografi
+
+- **Montserrat 800/700** — navigation, overskrifter, knapper, labels, tags
+- **Source Serif 4 400/italic** — kortindhold, instrukser, inputfelter, brødtekst
+
+### 9.4 Spacing og border-radius
+
+8px grid gennemgående. Max-bredde 1060px centreret.
+
+| Element | Border-radius |
+|---------|--------------|
+| Tags/pills | 20px |
+| Inputfelter | 8px |
+| Knapper | 10px |
+| Kortchips | 12px |
+| Cards/panels | 14px |
+| Step-dots | 50% |
+
+### 9.5 CSS-variabler
+
+```css
+--color-nav: #155E5E;
+--color-teal: #1F7A7A;
+--color-teal-light: #D1EEEE;
+--color-amber: #F59E0B;
+--color-bg: #F7F3EF;
+--color-text: #2B2B2B;
+--color-muted: #6B7280;
+--font-heading: 'Montserrat', sans-serif;
+--font-body: 'Source Serif 4', Georgia, serif;
+--radius-card: 14px;
+--radius-btn: 10px;
+--radius-chip: 12px;
+--radius-tag: 20px;
+```
+
+---
+
+## 10. Litteratur
+
+Biesta, G. (2011). *God uddannelse i målingens tidsalder*. Klim.
+
+Bijker, W. E. (1995). *Of Bicycles, Bakelites, and Bulbs: Toward a Theory of Sociotechnical Change*. MIT Press.
+
+Bijker, W. E., Hughes, T. P., & Pinch, T. J. (Eds.). (1987). *The Social Construction of Technological Systems*. MIT Press.
+
+Brinkmann, S., & Tanggaard, L. (2013). An epistemology of the hand: Putting pragmatism to work. I P. Gibbs (red.), *Learning, Work and Practice: New Understandings* (s. 147–163). Springer.
+
+Dalsgaard, P. (2025). Reflective friction in generative AI: Designing for slow thinking in fast systems. *Proceedings of Aarhus '25*.
+
+Dalsgaard, C., & Ryberg, T. (2022). *Digitale læringsrum*. Samfundslitteratur.
+
+Dewey, J. (1938a). *Experience and Education*. Kappa Delta Pi.
+
+Dewey, J. (1938b). *Logic: The Theory of Inquiry*. Henry Holt.
+
+Fawns, T. (2022). An entangled pedagogy: Looking beyond the pedagogy–technology dichotomy. *Postdigital Science and Education, 4*, 711–728.
+
+Lortie, D. (1975). *Schoolteacher: A Sociological Study*. University of Chicago Press.
+
+Lund, L. (2020). *Didaktisk Refleksion*, bd. 1–3. Dafolo.
+
+MacKenzie, D., & Wajcman, J. (Eds.). (1999). *The Social Shaping of Technology* (2nd ed.). Open University Press.
+
+Polanyi, M. (1966). *The Tacit Dimension*. Doubleday.
+
+Schön, D. A. (1983). *The Reflective Practitioner*. Basic Books.
+
+Schön, D. A. (1987/2013). *Uddannelse af den reflekterende praktiker*. Forlaget Klim.
+
+Sfard, A. (1998). On two metaphors for learning and the dangers of choosing just one. *Educational Researcher, 27*(2), 4–13.
+
+Wenger, E. (1998). *Communities of Practice*. Cambridge University Press.
+
+Winner, L. (1980). Do artifacts have politics? *Daedalus, 109*(1), 121–136.
+
+Winner, L. (1986). *The Whale and the Reactor: A Search for Limits in an Age of High Technology*. University of Chicago Press.
+
+---
+
+*Masterspecifikation · Det Epistemologiske Værksted · Jacob Witt-Larsen · MIL 2026*

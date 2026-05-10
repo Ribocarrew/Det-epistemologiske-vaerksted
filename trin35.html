@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teknologiens Rolle - Det Epistemologiske Værksted</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;1,8..60,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .tech-layout {
+            padding: 4rem 2rem 6rem;
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+            text-align: left;
+        }
+
+        .tech-card {
+            background-color: #FFFFFF;
+            border: 2px solid var(--color-teal-light);
+            border-radius: var(--radius-card);
+            padding: 2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            position: relative;
+        }
+
+        .tech-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--color-teal);
+        }
+
+        .tech-card.selected {
+            border-color: var(--color-amber);
+            background-color: #FFFBEB;
+            box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.2);
+        }
+
+        .tech-letter {
+            font-family: var(--font-heading);
+            font-weight: 800;
+            font-size: 2rem;
+            color: var(--color-teal-light);
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .tech-card.selected .tech-letter {
+            color: var(--color-amber);
+        }
+
+        .card-icon-wrapper {
+            width: 48px;
+            height: 48px;
+            background-color: rgba(21, 94, 94, 0.1); /* light teal */
+            color: var(--color-teal);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .tech-card.selected .card-icon-wrapper {
+            background-color: var(--color-amber);
+            color: white;
+        }
+
+        .tech-card h3 {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: var(--color-teal);
+            margin-bottom: 0.5rem;
+            padding-right: 2rem;
+        }
+
+        .tech-card p {
+            font-size: 0.95rem;
+            color: var(--color-text);
+            opacity: 0.9;
+            flex-grow: 1;
+        }
+        
+        .action-container {
+            margin-top: 4rem;
+            height: 60px; /* Pre-allocate space to avoid layout shift */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .spinner {
+            animation: spin 1s linear infinite;
+            margin-left: 0.75rem;
+        }
+
+        @keyframes spin {
+            100% { transform: rotate(360deg); }
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .btn:disabled {
+            opacity: 0.8;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-content">
+            <div class="logo"><a href="index.html" style="text-decoration:none; color:inherit;">Værksted</a></div>
+            <ul class="nav-links">
+                <li><a href="teori.html">Teoretisk Grundlag</a></li>
+                <li><a href="om.html">Om Projektet</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="tech-layout">
+        <h1 style="font-family: var(--font-heading); font-size: 2.5rem; color: var(--color-nav); margin-bottom: 1rem;">Hvilken rolle spiller teknologien i dette forløb?</h1>
+        <p style="color: var(--color-muted); font-size: 1.1rem; max-width: 600px; margin: 0 auto;">
+            Systemet antager ikke, at teknologi i sig selv har en fast epistemologi. Vælg den beskrivelse, der passer bedst på dit design.
+        </p>
+
+        <div class="tech-grid">
+            <div class="tech-card" data-role="A">
+                <div class="tech-letter">A</div>
+                <div class="card-icon-wrapper">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 10 3-3 3 3"/><path d="M12 13V7"/><rect width="20" height="14" x="2" y="3" rx="2"/><path d="M12 17v4"/><path d="M8 21h8"/></svg>
+                </div>
+                <h3>Det digitale kopirum (Distribution)</h3>
+                <p>Teknologien bruges primært til at vise, afspille eller dele fagligt indhold. Læreren eller materialet er afsender. Eleven er modtager. (Bijker: LMS og whiteboard bruges oftest med denne dominerende fortolkning).</p>
+            </div>
+
+            <div class="tech-card" data-role="B">
+                <div class="tech-letter">B</div>
+                <div class="card-icon-wrapper">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+                </div>
+                <h3>Det digitale penalhus (Produktion)</h3>
+                <p>Eleven producerer med teknologien (laver en præsentation, skriver en tekst), men inden for en given struktur. Teknologien leverer produktionskapacitet, men problemet og metoden er ofte fastlagt af læreren.</p>
+            </div>
+
+            <div class="tech-card" data-role="C">
+                <div class="tech-letter">C</div>
+                <div class="card-icon-wrapper">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
+                </div>
+                <h3>Det digitale værksted (Undersøgelsesrum)</h3>
+                <p>Eleven bruger teknologien som formbart materiale eller åbent sandkassemiljø. Hvad teknologien overhovedet kan gøre i dette forløb, er selv et undersøgelsesspørgsmål for eleven.</p>
+            </div>
+
+            <div class="tech-card" data-role="D">
+                <div class="tech-letter">D</div>
+                <div class="card-icon-wrapper">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                </div>
+                <h3>Det analoge rum (Fysisk forløb)</h3>
+                <p>Teknologi spiller ingen central rolle her. Erkendelsen foregår uden digital skærm, f.eks. via fysiske bøger, notesbøger, post-its eller i samtale og eksperimenter. Spørg dig selv: Hvad ville digitalisering tilføje eller ødelægge?</p>
+            </div>
+        </div>
+
+        <div class="action-container">
+            <button id="nextBtn" class="btn btn-primary hidden">
+                <span>Se dit Kompas</span>
+                <svg class="spinner" style="display: none;" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
+            </button>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const cards = document.querySelectorAll('.tech-card');
+            const nextBtn = document.getElementById('nextBtn');
+            let selectedRole = null;
+
+            // Redirect if user hasn't completed previous steps
+            const mirrorState = localStorage.getItem('epistemologisk_mirror_state');
+            if (!mirrorState) {
+                window.location.href = 'spejlet.html';
+            }
+
+            cards.forEach(card => {
+                card.addEventListener('click', () => {
+                    // Remove selected class from all
+                    cards.forEach(c => c.classList.remove('selected'));
+                    
+                    // Add to clicked
+                    card.classList.add('selected');
+                    selectedRole = card.dataset.role;
+                    
+                    // Save to global state
+                    localStorage.setItem('epistemologisk_tech_role', selectedRole);
+                    
+                    // Show next button
+                    nextBtn.classList.remove('hidden');
+                });
+            });
+
+            let isLoading = false;
+
+            nextBtn.addEventListener('click', () => {
+                if (selectedRole && !isLoading) {
+                    isLoading = true;
+                    
+                    // Prevent multiple clicks
+                    nextBtn.disabled = true;
+                    
+                    // Show loading state
+                    const span = nextBtn.querySelector('span');
+                    const spinner = nextBtn.querySelector('.spinner');
+                    
+                    span.textContent = 'Beregner...';
+                    spinner.style.display = 'block';
+                    
+                    // Delay navigation to give a "premium calculation" feel
+                    setTimeout(() => {
+                        window.location.href = 'kompas.html';
+                    }, 1200);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

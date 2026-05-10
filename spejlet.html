@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spejlet - Det Epistemologiske Værksted</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;1,8..60,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="spejlet.css">
+    <!-- SortableJS for robust Drag and Drop -->
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+</head>
+<body>
+    <button id="testAutoFill" style="position:fixed; top:10px; left:10px; z-index:9999; padding:5px; background:red; color:white; border:none; cursor:pointer;">Auto-fill (Test)</button>
+    <nav class="navbar">
+        <div class="nav-content">
+            <div class="logo"><a href="index.html" style="text-decoration:none; color:inherit;">Værksted</a></div>
+            <ul class="nav-links">
+                <li><a href="teori.html">Teoretisk Grundlag</a></li>
+                <li><a href="om.html">Om Projektet</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="sticky-header">
+        <div class="header-content">
+            <div style="flex-grow: 1;">
+                <h1 style="font-size: 1.5rem; margin-bottom: 0.5rem; color: var(--color-nav);">Spejlet</h1>
+                <div id="instruction-box" class="instruction-box neutral">
+                    <span id="instruction-text">Træk dine 9 kort ned i diamanten.</span>
+                </div>
+            </div>
+            <div>
+                <button id="nextBtn" class="btn btn-primary hidden">Gå til Teknologiens Rolle</button>
+            </div>
+        </div>
+    </div>
+
+    <main class="container spejlet-layout">
+        
+        <div class="spejlet-columns">
+            <!-- Pool -->
+            <section class="pool-section">
+                <h2 class="section-title" style="font-size: 1.25rem;">Dine valgte kort</h2>
+                <div id="pool" class="pool-container compact-pool">
+                    <!-- Cards will be injected here -->
+                </div>
+            </section>
+
+            <!-- Diamond -->
+            <section class="diamond-section">
+                <h2 class="section-title">Diamantsortering</h2>
+                <p class="diamond-help">Mest karakteristisk i toppen – Mindst karakteristisk i bunden.</p>
+                
+                <div class="diamond-grid">
+                    <!-- Row 1 -->
+                    <div class="diamond-row">
+                        <div class="slot" data-weight="3" id="slot-0"></div>
+                    </div>
+                    <!-- Row 2 -->
+                    <div class="diamond-row">
+                        <div class="slot" data-weight="2" id="slot-1"></div>
+                        <div class="slot" data-weight="2" id="slot-2"></div>
+                    </div>
+                    <!-- Row 3 -->
+                    <div class="diamond-row">
+                        <div class="slot" data-weight="1" id="slot-3"></div>
+                        <div class="slot" data-weight="1" id="slot-4"></div>
+                        <div class="slot" data-weight="1" id="slot-5"></div>
+                    </div>
+                    <!-- Row 4 -->
+                    <div class="diamond-row">
+                        <div class="slot" data-weight="0.5" id="slot-6"></div>
+                        <div class="slot" data-weight="0.5" id="slot-7"></div>
+                    </div>
+                    <!-- Row 5 -->
+                    <div class="diamond-row">
+                        <div class="slot" data-weight="0" id="slot-8"></div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+    </main>
+
+    <script type="module" src="spejlet.js"></script>
+</body>
+</html>

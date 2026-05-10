@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kompasset - Det Epistemologiske Værksted</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;1,8..60,400&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="kompas.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-content">
+            <div class="logo"><a href="index.html" style="text-decoration:none; color:inherit;">Værksted</a></div>
+            <ul class="nav-links">
+                <li><a href="teori.html">Teoretisk Grundlag</a></li>
+                <li><a href="om.html">Om Projektet</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container kompas-layout">
+        
+        <header class="kompas-header">
+            <h1 style="font-family: var(--font-heading); font-size: 2.5rem; color: var(--color-nav); margin-bottom: 0.5rem;">Dit Epistemologiske Kompas</h1>
+            <p style="color: var(--color-muted); font-size: 1.1rem; max-width: 700px; margin: 0 auto;">
+                Her er det beregnede tyngdepunkt for dit forløb, baseret på dine valgte kort, diamantsorteringen og teknologiens rolle.
+            </p>
+        </header>
+
+        <section class="results-section">
+            
+            <!-- Matrix UI -->
+            <div class="matrix-container">
+                <div class="matrix-labels y-axis-top">Friktion</div>
+                <div class="matrix-labels y-axis-bottom">Glat</div>
+                <div class="matrix-labels x-axis-left">Øjet</div>
+                <div class="matrix-labels x-axis-right">Hånden</div>
+
+                <div class="matrix-wrapper">
+                    <svg id="matrix-svg" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Quadrant Backgrounds -->
+                        <rect x="0" y="0" width="200" height="200" fill="#D1FAE5" opacity="0.4" /> <!-- AT -->
+                        <rect x="200" y="0" width="200" height="200" fill="#CCFBF1" opacity="0.4" /> <!-- TB -->
+                        <rect x="0" y="200" width="200" height="200" fill="#FEF9C3" opacity="0.4" /> <!-- IR -->
+                        <rect x="200" y="200" width="200" height="200" fill="#EDE9FE" opacity="0.4" /> <!-- SA -->
+                        
+                        <!-- Axes -->
+                        <line x1="200" y1="0" x2="200" y2="400" stroke="var(--color-teal)" stroke-width="2" stroke-dasharray="4" />
+                        <line x1="0" y1="200" x2="400" y2="200" stroke="var(--color-teal)" stroke-width="2" stroke-dasharray="4" />
+
+                        <!-- Center point -->
+                        <circle cx="200" cy="200" r="4" fill="var(--color-teal)" />
+                        
+                        <!-- Dynamic Point will be injected here -->
+                    </svg>
+                    
+                    <div class="quadrant-label q-at">Adaptiv Træning</div>
+                    <div class="quadrant-label q-tb">Transformativt Brud</div>
+                    <div class="quadrant-label q-ir">Instrumentel Reproduktion</div>
+                    <div class="quadrant-label q-sa">Skin-Aktivitet</div>
+                </div>
+            </div>
+
+            <!-- Feedback Panel -->
+            <div class="feedback-panel">
+                <div class="result-badge" id="result-quadrant">Kvadrant</div>
+                <h2 style="font-family: var(--font-heading); font-size: 1.5rem; color: var(--color-teal); margin-bottom: 1rem;">Din Feedback-profil</h2>
+                
+                <div class="feedback-stats">
+                    <!-- Coordinates removed per user request -->
+                    <div class="stat">
+                        <span class="stat-label">Teknologirolle</span>
+                        <span class="stat-value" id="result-tech">A</span>
+                    </div>
+                </div>
+
+                <div class="feedback-message" id="feedback-message">
+                    Beregner dit tyngdepunkt...
+                </div>
+
+                <div class="actions" style="margin-top: 3rem; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                    <button id="exportPdfBtn" class="btn btn-primary">Gem som PDF</button>
+                    <button id="resetBtn" class="btn btn-secondary">Start et nyt forløb</button>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <script type="module" src="kompas.js"></script>
+</body>
+</html>
