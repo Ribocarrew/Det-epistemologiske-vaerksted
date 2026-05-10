@@ -141,17 +141,28 @@ async function calculateAndPlot() {
         });
 
         clearTimeout(timeoutId);
+
+        if (!response.ok) {
+            let errMsg = `Netværksfejl (Status: ${response.status})`;
+            try {
+                const errorData = await response.json();
+                errMsg = errorData.error || errMsg;
+            } catch (e) {
+                if (response.status === 504) errMsg = "Timeout: AI-kaldet tog for lang tid for serveren.";
+            }
+            throw new Error(errMsg);
+        }
         
         let data;
         try {
             data = await response.json();
         } catch (e) {
-            throw new Error("Serveren returnerede et ugyldigt svar.");
+            throw new Error("Serveren returnerede et ugyldigt svar (ikke JSON).");
         }
 
         feedbackMessage.style.opacity = '0';
         setTimeout(() => {
-            if (response.ok && data.feedback) {
+            if (data.feedback) {
                 try {
                     // Try marked.parse first (newer marked versions), fallback to marked() (older), then plain text
                     if (typeof marked !== 'undefined') {

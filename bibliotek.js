@@ -199,11 +199,18 @@ async function handleAICard() {
             body: JSON.stringify({ text })
         });
 
-        const data = await response.json();
-
         if (!response.ok) {
-            throw new Error(data.error || "Fejl fra serveren.");
+            let errMsg = `Netværksfejl (Status: ${response.status})`;
+            try {
+                const errorData = await response.json();
+                errMsg = errorData.error || errMsg;
+            } catch (e) {
+                if (response.status === 504) errMsg = "Timeout: AI-kaldet tog for lang tid for serveren.";
+            }
+            throw new Error(errMsg);
         }
+
+        const data = await response.json();
 
         // Determine quadrant based on X and Y
         let quadrant = 'TB';
