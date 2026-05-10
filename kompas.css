@@ -60,16 +60,113 @@
     position: absolute;
     font-size: 0.75rem;
     font-weight: bold;
-    opacity: 0.5;
-    pointer-events: none;
+    opacity: 0.8;
+    pointer-events: auto;
     text-align: center;
     width: 50%;
+    z-index: 10;
 }
 
 .q-at { top: 10px; left: 0; color: #064E3B; }
 .q-tb { top: 10px; right: 0; color: #134E4A; }
 .q-ir { bottom: 10px; left: 0; color: #713F12; }
 .q-sa { bottom: 10px; right: 0; color: #3B0764; }
+
+/* Tooltips for Quadrant Labels */
+.tooltip-trigger {
+    border-bottom: 1px dashed currentColor;
+    cursor: help;
+    display: inline-block;
+    padding-bottom: 2px;
+}
+
+.info-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 1px solid currentColor;
+    font-size: 9px;
+    font-weight: bold;
+    font-family: sans-serif;
+    margin-left: 4px;
+    vertical-align: middle;
+}
+
+.tooltip-text {
+    position: absolute;
+    background-color: var(--color-nav);
+    color: white;
+    padding: 0.75rem;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: normal;
+    width: 220px;
+    box-shadow: var(--shadow-lg);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.2s ease;
+    pointer-events: none;
+    z-index: 100;
+    text-align: left;
+    line-height: 1.4;
+    left: 50%;
+}
+
+/* Tooltips for bottom quadrants (popup goes UP) */
+.q-ir .tooltip-text, .q-sa .tooltip-text {
+    bottom: 100%;
+    transform: translateX(-50%) translateY(10px);
+}
+.q-ir .tooltip-text::after, .q-sa .tooltip-text::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 6px;
+    border-style: solid;
+    border-color: var(--color-nav) transparent transparent transparent;
+}
+.q-ir:hover .tooltip-text, .q-sa:hover .tooltip-text,
+.q-ir:active .tooltip-text, .q-sa:active .tooltip-text {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(-5px);
+}
+
+/* Tooltips for top quadrants (popup goes DOWN) */
+.q-at .tooltip-text, .q-tb .tooltip-text {
+    top: 100%;
+    transform: translateX(-50%) translateY(-10px);
+}
+.q-at .tooltip-text::after, .q-tb .tooltip-text::after {
+    content: '';
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 6px;
+    border-style: solid;
+    border-color: transparent transparent var(--color-nav) transparent;
+}
+.q-at:hover .tooltip-text, .q-tb:hover .tooltip-text,
+.q-at:active .tooltip-text, .q-tb:active .tooltip-text {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(5px);
+}
+
+/* PDF Export Hiding */
+@media print {
+    .tooltip-text, .info-icon { display: none !important; }
+    .tooltip-trigger { border-bottom: none !important; }
+}
+.html2pdf__container .tooltip-text,
+.html2pdf__container .info-icon { display: none !important; }
+.html2pdf__container .tooltip-trigger { border-bottom: none !important; }
 
 /* The Dot */
 .centroid-dot {

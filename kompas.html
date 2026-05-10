@@ -19,6 +19,7 @@
             <ul class="nav-links">
                 <li><a href="teori.html">Teoretisk Grundlag</a></li>
                 <li><a href="om.html">Om Projektet</a></li>
+                <li><a href="#" class="nav-reset-btn" onclick="if(confirm('Er du sikker? Alle valg slettes.')) { localStorage.clear(); window.location.href='bibliotek.html'; } return false;" style="color: var(--color-amber); display: flex; align-items: center; gap: 4px; transition: color 0.2s ease;"><svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg> Nulstil forløb</a></li>
             </ul>
         </div>
     </nav>
@@ -59,10 +60,22 @@
                         <!-- Dynamic Point will be injected here -->
                     </svg>
                     
-                    <div class="quadrant-label q-at">Adaptiv Træning</div>
-                    <div class="quadrant-label q-tb">Transformativt Brud</div>
-                    <div class="quadrant-label q-ir">Instrumentel Reproduktion</div>
-                    <div class="quadrant-label q-sa">Skin-Aktivitet</div>
+                    <div class="quadrant-label q-at tooltip-container">
+                        <span class="tooltip-trigger">Systematisk Analyse <span class="info-icon">i</span></span>
+                        <div class="tooltip-text">Fokus er på, at eleven aktivt bearbejder viden, diskuterer og forholder sig kritisk til kilder, påstande eller metoder.</div>
+                    </div>
+                    <div class="quadrant-label q-tb tooltip-container">
+                        <span class="tooltip-trigger">Åben Udforskning <span class="info-icon">i</span></span>
+                        <div class="tooltip-text">Fokus er på, at eleven selv definerer problemer, undersøger det ukendte og skaber ny erkendelse. Viden og svar er ikke givet på forhånd.</div>
+                    </div>
+                    <div class="quadrant-label q-ir tooltip-container">
+                        <span class="tooltip-trigger">Målrettet Tilegnelse <span class="info-icon">i</span></span>
+                        <div class="tooltip-text">Fokus er på, at læreren formidler, og eleven modtager og husker færdig viden. Det korrekte svar og den faste metode er i centrum.</div>
+                    </div>
+                    <div class="quadrant-label q-sa tooltip-container">
+                        <span class="tooltip-trigger">Styret Produktion <span class="info-icon">i</span></span>
+                        <div class="tooltip-text">Fokus er på, at eleven er aktiv, kreativ og producerer (f.eks. video), men inden for stramme rammer, hvor læringen primært er reproduktiv.</div>
+                    </div>
                 </div>
             </div>
 
