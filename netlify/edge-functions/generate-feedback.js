@@ -22,6 +22,10 @@ Hvordan spiller deres valgte teknologi sammen med deres didaktiske mål? Skriv o
 Afslut med præcis 2 skarpe, praksisnære spørgsmål som bullet points.`;
 
 export default async (req, context) => {
+    if (!Netlify.env.get("GEMINI_API_KEY")) {
+        return new Response(JSON.stringify({ error: "API-nøgle mangler i Edge miljøet!" }), { status: 500, headers: { 'Content-Type': 'application/json' } });
+    }
+
     if (req.method !== "POST") {
         return new Response("Method Not Allowed", { status: 405 });
     }
@@ -29,7 +33,7 @@ export default async (req, context) => {
     try {
         const apiKey = Netlify.env.get("GEMINI_API_KEY");
         
-        if (!apiKey || apiKey === 'indsæt_din_nøgle_her') {
+        if (apiKey === 'indsæt_din_nøgle_her') {
             return new Response(JSON.stringify({ error: "Gemini API nøgle mangler i miljøvariabler (Netlify)" }), {
                 status: 500,
                 headers: { "Content-Type": "application/json" }
@@ -68,10 +72,10 @@ Generer din feedback baseret på ovenstående data i Markdown-format.`;
             headers: { "Content-Type": "application/json" }
         });
     } catch (error) {
-        console.error("Fejl ved generering af feedback (Edge):", error);
-        return new Response(JSON.stringify({ error: "Kunne ikke generere feedback. Prøv igen." }), {
+        console.error("API Error:", error);
+        return new Response(JSON.stringify({ error: error.message || "Ukendt serverfejl" }), {
             status: 500,
-            headers: { "Content-Type": "application/json" }
+            headers: { 'Content-Type': 'application/json' }
         });
     }
 };

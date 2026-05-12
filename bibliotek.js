@@ -200,14 +200,8 @@ async function handleAICard() {
         });
 
         if (!response.ok) {
-            let errMsg = `Netværksfejl (Status: ${response.status})`;
-            try {
-                const errorData = await response.json();
-                errMsg = errorData.error || errMsg;
-            } catch (e) {
-                if (response.status === 504) errMsg = "Timeout: AI-kaldet tog for lang tid for serveren.";
-            }
-            throw new Error(errMsg);
+            const errorData = await response.json().catch(() => ({ error: "Kunne ikke læse fejl-JSON" }));
+            throw new Error(errorData.error || `Serverfejl: ${response.status}`);
         }
 
         const data = await response.json();
