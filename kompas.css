@@ -33,9 +33,7 @@
     overflow: hidden;
 }
 
-#matrix-svg {
-    width: 100%;
-    height: auto;
+#matrix-css {
     display: block;
 }
 
@@ -167,6 +165,26 @@
 .html2pdf__container .tooltip-text,
 .html2pdf__container .info-icon { display: none !important; }
 .html2pdf__container .tooltip-trigger { border-bottom: none !important; }
+
+/* PDF Export Mode Layout */
+.pdf-export-mode.results-section {
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 2rem !important;
+}
+
+.pdf-export-mode .matrix-container {
+    width: 500px !important;
+    max-width: 100% !important;
+    margin: 0 auto !important;
+    flex: none !important;
+    padding: 1rem !important;
+}
+
+.pdf-export-mode .feedback-panel {
+    width: 100% !important;
+    flex: none !important;
+}
 
 /* The Dot */
 .centroid-dot {

@@ -283,6 +283,9 @@ function generatePDF() {
     if (originalResults) {
         const resultsClone = originalResults.cloneNode(true);
         
+        // Add PDF export mode class for layout adjustments
+        resultsClone.classList.add('pdf-export-mode');
+        
         // Remove massive margin to avoid blank first page
         resultsClone.style.marginTop = '0';
         
@@ -290,12 +293,10 @@ function generatePDF() {
         const actionsDiv = resultsClone.querySelector('.actions');
         if (actionsDiv) actionsDiv.remove();
         
-        // Ensure SVG is visible in the clone
-        const svgClone = resultsClone.querySelector('svg');
-        if (svgClone) {
-            svgClone.style.display = 'block';
-            svgClone.style.maxWidth = '400px';
-            svgClone.style.margin = '0 auto';
+        // Ensure the CSS matrix is visible in the clone
+        const matrixCssClone = resultsClone.querySelector('#matrix-css');
+        if (matrixCssClone) {
+            matrixCssClone.style.display = 'block';
         }
         
         // Disable dot animation in PDF so it renders exactly at the final spot
@@ -375,7 +376,7 @@ function generatePDF() {
     wrapper.style.position = 'absolute';
     wrapper.style.left = '-9999px';
     wrapper.style.top = '-9999px';
-    wrapper.style.width = '800px'; // Force desktop width for layout
+    wrapper.style.width = '1200px'; // Force desktop width for layout
     wrapper.appendChild(printContainer);
     document.body.appendChild(wrapper);
     
@@ -383,12 +384,12 @@ function generatePDF() {
     exportPdfBtn.disabled = true;
     exportPdfBtn.textContent = 'Genererer PDF...';
     
-    // Options
+    // Options for optimized PDF generation
     const opt = {
-        margin:       10,
-        filename:     'Mit_Epistemologiske_Forloeb.pdf',
+        margin:       [10, 10, 10, 10], // Margen i mm
+        filename:     'mit-epistemologiske-kompas.pdf',
         image:        { type: 'jpeg', quality: 0.98 },
-        html2canvas:  { scale: 2, useCORS: true, logging: true },
+        html2canvas:  { scale: 2, useCORS: true, windowWidth: 1200 },
         jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' },
         pagebreak:    { mode: ['avoid-all', 'css', 'legacy'] }
     };
