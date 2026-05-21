@@ -32,8 +32,17 @@ if (!selectedCardIds || selectedCardIds.length !== 9) {
         } catch(e) {}
     }
 
-    // Map IDs to full card objects
-    const selectedCards = selectedCardIds.map(id => cards.find(c => c.id === id)).filter(Boolean);
+    // Load AI starter cards
+    const savedStarter = localStorage.getItem('epistemologisk_starter_cards');
+    if (savedStarter) {
+        try {
+            const starterCards = JSON.parse(savedStarter);
+            cards.push(...starterCards);
+        } catch(e) {}
+    }
+
+    // Map IDs to full card objects (using loose equality just in case of string/int mismatch)
+    const selectedCards = selectedCardIds.map(id => cards.find(c => c.id == id)).filter(Boolean);
 
     // Initialize
     function init() {
@@ -59,15 +68,6 @@ if (!selectedCardIds || selectedCardIds.length !== 9) {
         updateState();
         
         nextBtn.addEventListener('click', saveAndProceed);
-        
-        // Test helper
-        document.getElementById('testAutoFill')?.addEventListener('click', () => {
-            const pCards = Array.from(poolEl.children);
-            slots.forEach((slot, index) => {
-                if (pCards[index]) slot.appendChild(pCards[index]);
-            });
-            updateState();
-        });
     }
 
     function renderPool() {
