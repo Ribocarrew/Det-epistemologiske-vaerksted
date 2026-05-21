@@ -362,11 +362,12 @@ function generatePDF() {
     
     // Options based on user instruction
     const opt = {
-        margin:       0,
+        margin:       [10, 10, 10, 10], // Margen i mm for top, højre, bund, venstre
         filename:     'Mit_Epistemologiske_Forloeb.pdf',
         image:        { type: 'jpeg', quality: 1 },
         html2canvas:  { scale: 2, useCORS: true, logging: false },
-        jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' },
+        pagebreak:    { mode: 'avoid-all' }
     };
     
     // Generate PDF
