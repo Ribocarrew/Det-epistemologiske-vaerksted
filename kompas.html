@@ -101,6 +101,68 @@
             </div>
 
         </section>
+
+        <!-- Hidden PDF Template -->
+        <div style="position: absolute; top: -9999px; left: -9999px; width: 0; height: 0; overflow: hidden;">
+            <div id="pdf-export-template" style="width: 210mm; padding: 20mm; background-color: white; color: black; font-family: Montserrat, sans-serif; box-sizing: border-box;">
+                <h1 style="color: #155E5E; border-bottom: 2px solid #D1EEEE; padding-bottom: 1rem; margin-bottom: 2rem; font-size: 2rem; text-align: center;">Mit Epistemologiske Forløbsdesign</h1>
+                
+                <div style="display: flex; flex-direction: column; align-items: center; gap: 2rem;">
+                    
+                    <!-- Robust Compass -->
+                    <div style="width: 500px; height: 500px; position: relative;">
+                        <!-- Quadrant Backgrounds -->
+                        <div style="position: absolute; top: 0; left: 0; width: 50%; height: 50%; background-color: #D1FAE5; opacity: 0.6;"></div>
+                        <div style="position: absolute; top: 0; left: 50%; width: 50%; height: 50%; background-color: #CCFBF1; opacity: 0.6;"></div>
+                        <div style="position: absolute; top: 50%; left: 0; width: 50%; height: 50%; background-color: #FEF9C3; opacity: 0.6;"></div>
+                        <div style="position: absolute; top: 50%; left: 50%; width: 50%; height: 50%; background-color: #EDE9FE; opacity: 0.6;"></div>
+                        
+                        <!-- Axes -->
+                        <div style="position: absolute; top: 0; left: 50%; width: 0px; height: 100%; border-left: 2px dashed #155E5E; transform: translateX(-50%); z-index: 2;"></div>
+                        <div style="position: absolute; top: 50%; left: 0; width: 100%; height: 0px; border-top: 2px dashed #155E5E; transform: translateY(-50%); z-index: 2;"></div>
+
+                        <!-- Center point -->
+                        <div style="position: absolute; top: 50%; left: 50%; width: 8px; height: 8px; background-color: #155E5E; border-radius: 50%; transform: translate(-50%, -50%); z-index: 3;"></div>
+                        
+                        <!-- Dynamic Dot will be injected here via JS -->
+                        <div id="pdf-dot" style="position: absolute; width: 16px; height: 16px; background-color: #F59E0B; border-radius: 50%; transform: translate(-50%, -50%); z-index: 10; left: 50%; top: 50%;"></div>
+                        
+                        <!-- Labels -->
+                        <div style="position: absolute; top: 10px; left: 10px; font-size: 0.85rem; font-weight: bold; color: #064E3B; z-index: 10;">Systematisk Analyse</div>
+                        <div style="position: absolute; top: 10px; right: 10px; font-size: 0.85rem; font-weight: bold; color: #134E4A; z-index: 10; text-align: right;">Åben Udforskning</div>
+                        <div style="position: absolute; bottom: 10px; left: 10px; font-size: 0.85rem; font-weight: bold; color: #713F12; z-index: 10;">Målrettet Tilegnelse</div>
+                        <div style="position: absolute; bottom: 10px; right: 10px; font-size: 0.85rem; font-weight: bold; color: #3B0764; z-index: 10; text-align: right;">Styret Produktion</div>
+                        
+                        <!-- Axes Labels -->
+                        <div style="position: absolute; top: -30px; left: 50%; transform: translateX(-50%); font-weight: bold; font-size: 0.85rem; color: #155E5E; text-transform: uppercase;">Friktion</div>
+                        <div style="position: absolute; bottom: -30px; left: 50%; transform: translateX(-50%); font-weight: bold; font-size: 0.85rem; color: #155E5E; text-transform: uppercase;">Glat</div>
+                        <div style="position: absolute; top: 50%; left: -60px; transform: translateY(-50%) rotate(-90deg); font-weight: bold; font-size: 0.85rem; color: #155E5E; text-transform: uppercase;">Øjet</div>
+                        <div style="position: absolute; top: 50%; right: -70px; transform: translateY(-50%) rotate(90deg); font-weight: bold; font-size: 0.85rem; color: #155E5E; text-transform: uppercase;">Hånden</div>
+                    </div>
+                    
+                    <!-- Feedback Profil -->
+                    <div style="width: 100%; margin-top: 3rem;">
+                        <div id="pdf-quadrant-badge" class="result-badge" style="display: inline-block; font-weight: 800; font-size: 0.85rem; padding: 0.4rem 1rem; border-radius: 9999px; margin-bottom: 1rem; text-transform: uppercase; border: 1px solid #155E5E; background: #F7F3EF;">Kvadrant</div>
+                        <h2 style="font-size: 1.5rem; color: #155E5E; margin-bottom: 1rem; margin-top: 0;">Din Feedback-profil</h2>
+                        <div style="margin-bottom: 1.5rem; border-bottom: 1px solid #D1EEEE; padding-bottom: 1rem;">
+                            <span style="font-size: 0.8rem; color: #666; text-transform: uppercase; display: block; margin-bottom: 0.25rem;">Teknologirolle</span>
+                            <span id="pdf-tech-role" style="font-weight: 700; font-size: 1.1rem; color: #155E5E;">A</span>
+                        </div>
+                        <div id="pdf-feedback-text" style="font-family: 'Source Serif 4', serif; font-size: 1.1rem; line-height: 1.7; color: #2B2B2B;">
+                            Feedback tekst...
+                        </div>
+                    </div>
+
+                    <!-- Prioriteringslisten -->
+                    <div style="width: 100%; margin-top: 2rem; page-break-before: always;">
+                        <h2 style="color: #155E5E; border-bottom: 2px solid #D1EEEE; padding-bottom: 1rem; margin-bottom: 1.5rem;">Prioriteringslisten (Spejlet)</h2>
+                        <div id="pdf-card-list">
+                            <!-- Cards will be injected here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
 
     <script type="module" src="kompas.js"></script>

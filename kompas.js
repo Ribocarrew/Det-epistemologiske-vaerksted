@@ -261,148 +261,121 @@ function generatePDF() {
         return;
     }
 
-    // Generate the PDF content container
-    const printContainer = document.createElement('div');
-    printContainer.style.padding = '2rem';
-    printContainer.style.fontFamily = 'Montserrat, sans-serif';
-    printContainer.style.color = '#2B2B2B';
-    printContainer.style.backgroundColor = '#F7F3EF'; // Match app background
-    
-    // Header
-    const header = document.createElement('h1');
-    header.textContent = 'Mit Epistemologiske Forløbsdesign';
-    header.style.color = '#155E5E';
-    header.style.borderBottom = '2px solid #D1EEEE';
-    header.style.paddingBottom = '1rem';
-    header.style.marginBottom = '2rem';
-    header.style.fontSize = '2rem';
-    printContainer.appendChild(header);
-    
-    // Clone the actual results section to get exact styling
-    const originalResults = document.querySelector('.results-section');
-    if (originalResults) {
-        const resultsClone = originalResults.cloneNode(true);
-        
-        // Add PDF export mode class for layout adjustments
-        resultsClone.classList.add('pdf-export-mode');
-        
-        // Remove massive margin to avoid blank first page
-        resultsClone.style.marginTop = '0';
-        
-        // Remove the action buttons from the PDF
-        const actionsDiv = resultsClone.querySelector('.actions');
-        if (actionsDiv) actionsDiv.remove();
-        
-        // Ensure the CSS matrix is visible in the clone
-        const matrixCssClone = resultsClone.querySelector('#matrix-css');
-        if (matrixCssClone) {
-            matrixCssClone.style.display = 'block';
-        }
-        
-        // Disable dot animation in PDF so it renders exactly at the final spot
-        const dotClone = resultsClone.querySelector('.centroid-dot');
-        if (dotClone) {
-            dotClone.style.transition = 'none';
-        }
-        
-        // Prevent feedback text from splitting weirdly across pages
-        const feedbackClone = resultsClone.querySelector('#feedback-message');
-        if (feedbackClone) {
-            feedbackClone.style.pageBreakInside = 'avoid';
-            feedbackClone.style.breakInside = 'avoid';
-        }
-        
-        printContainer.appendChild(resultsClone);
+    const element = document.getElementById('pdf-export-template');
+    if (!element) {
+        console.error("PDF template not found!");
+        return;
     }
     
-    // Page Break before list
-    const pageBreak = document.createElement('div');
-    pageBreak.style.pageBreakBefore = 'always';
-    printContainer.appendChild(pageBreak);
-    
-    // Prioriteringslisten (Spejlet)
-    const listHeader = document.createElement('h2');
-    listHeader.textContent = 'Prioriteringslisten (Spejlet)';
-    listHeader.style.color = '#155E5E';
-    listHeader.style.borderBottom = '2px solid #D1EEEE';
-    listHeader.style.paddingBottom = '1rem';
-    listHeader.style.marginBottom = '1.5rem';
-    listHeader.style.marginTop = '2rem';
-    printContainer.appendChild(listHeader);
-    
-    // Group cards by weight
-    const weightGroups = {
-        3: { label: 'Mest karakteristisk (x3)', cards: [] },
-        2: { label: 'Meget karakteristisk (x2)', cards: [] },
-        1: { label: 'Karakteristisk (x1)', cards: [] },
-        0.5: { label: 'Mindre karakteristisk (x0.5)', cards: [] },
-        0: { label: 'Mindst karakteristisk (x0)', cards: [] }
-    };
-    
+    // 1. Populate Compass Dot
+    let sumX = 0;
+    let sumY = 0;
+    let sumWeight = 0;
     mirrorState.forEach(slot => {
-        const cardObj = cards.find(c => c.id === slot.cardId);
-        if (cardObj && weightGroups[slot.weight]) {
-            weightGroups[slot.weight].cards.push(cardObj.text);
-        }
+        sumX += slot.x * slot.weight;
+        sumY += slot.y * slot.weight;
+        sumWeight += slot.weight;
     });
+    const cx = sumWeight > 0 ? sumX / sumWeight : 0;
+    const cy = sumWeight > 0 ? sumY / sumWeight : 0;
+    const finalPctX = ((cx + 10) / 20) * 100;
+    const finalPctY = ((10 - cy) / 20) * 100;
     
-    // Render groups
-    [3, 2, 1, 0.5, 0].forEach(weight => {
-        const group = weightGroups[weight];
-        if (group.cards.length > 0) {
-            const groupDiv = document.createElement('div');
-            groupDiv.style.marginBottom = '1.5rem';
-            groupDiv.innerHTML = `<h3 style="color: #CA8A04; font-size: 1.2rem; margin-bottom: 0.5rem;">${group.label}</h3>`;
-            const ul = document.createElement('ul');
-            ul.style.listStyleType = 'none';
-            ul.style.padding = '0';
-            ul.style.margin = '0';
-            ul.style.fontFamily = "'Source Serif 4', serif";
-            
-            group.cards.forEach(text => {
-                const li = document.createElement('li');
-                li.textContent = "• " + text;
-                li.style.marginBottom = '0.5rem';
-                li.style.paddingLeft = '0.5rem';
-                ul.appendChild(li);
-            });
-            groupDiv.appendChild(ul);
-            printContainer.appendChild(groupDiv);
+    const pdfDot = document.getElementById('pdf-dot');
+    if (pdfDot) {
+        pdfDot.style.left = finalPctX + '%';
+        pdfDot.style.top = finalPctY + '%';
+    }
+    
+    // 2. Populate Feedback Profile
+    const quadrantElem = document.getElementById('result-quadrant');
+    const pdfQuadrant = document.getElementById('pdf-quadrant-badge');
+    if (pdfQuadrant && quadrantElem) {
+        pdfQuadrant.textContent = quadrantElem.textContent;
+        // Keep the base class and add the dynamic badge class
+        const badgeClass = Array.from(quadrantElem.classList).find(c => c.startsWith('badge-'));
+        if (badgeClass) {
+            pdfQuadrant.className = 'result-badge ' + badgeClass;
         }
-    });
+    }
     
-    // Temporarily append to body to render
-    const wrapper = document.createElement('div');
-    wrapper.style.position = 'absolute';
-    wrapper.style.left = '-9999px';
-    wrapper.style.top = '-9999px';
-    wrapper.style.width = '1200px'; // Force desktop width for layout
-    wrapper.appendChild(printContainer);
-    document.body.appendChild(wrapper);
+    const pdfTech = document.getElementById('pdf-tech-role');
+    const resultTech = document.getElementById('result-tech');
+    if (pdfTech && resultTech) {
+        pdfTech.textContent = resultTech.textContent;
+    }
     
-    console.log('Starter html2pdf konvertering...');
+    const pdfFeedback = document.getElementById('pdf-feedback-text');
+    const resultFeedback = document.getElementById('feedback-message');
+    if (pdfFeedback && resultFeedback) {
+        pdfFeedback.innerHTML = resultFeedback.innerHTML;
+    }
+    
+    // 3. Populate Card List
+    const pdfCardList = document.getElementById('pdf-card-list');
+    if (pdfCardList) {
+        pdfCardList.innerHTML = ''; // Clear previous
+        
+        const weightGroups = {
+            3: { label: 'Mest karakteristisk (x3)', cards: [] },
+            2: { label: 'Meget karakteristisk (x2)', cards: [] },
+            1: { label: 'Karakteristisk (x1)', cards: [] },
+            0.5: { label: 'Mindre karakteristisk (x0.5)', cards: [] },
+            0: { label: 'Mindst karakteristisk (x0)', cards: [] }
+        };
+        
+        mirrorState.forEach(slot => {
+            const cardObj = cards.find(c => c.id === slot.cardId);
+            if (cardObj && weightGroups[slot.weight]) {
+                weightGroups[slot.weight].cards.push(cardObj.text);
+            }
+        });
+        
+        [3, 2, 1, 0.5, 0].forEach(weight => {
+            const group = weightGroups[weight];
+            if (group.cards.length > 0) {
+                const groupDiv = document.createElement('div');
+                groupDiv.style.marginBottom = '1.5rem';
+                groupDiv.innerHTML = `<h3 style="color: #CA8A04; font-size: 1.2rem; margin-bottom: 0.5rem; margin-top: 0;">${group.label}</h3>`;
+                const ul = document.createElement('ul');
+                ul.style.listStyleType = 'none';
+                ul.style.padding = '0';
+                ul.style.margin = '0';
+                ul.style.fontFamily = "'Source Serif 4', serif";
+                ul.style.color = '#2B2B2B';
+                
+                group.cards.forEach(text => {
+                    const li = document.createElement('li');
+                    li.textContent = "• " + text;
+                    li.style.marginBottom = '0.5rem';
+                    li.style.paddingLeft = '0.5rem';
+                    ul.appendChild(li);
+                });
+                groupDiv.appendChild(ul);
+                pdfCardList.appendChild(groupDiv);
+            }
+        });
+    }
+
     exportPdfBtn.disabled = true;
     exportPdfBtn.textContent = 'Genererer PDF...';
     
-    // Options for optimized PDF generation
+    // Options based on user instruction
     const opt = {
-        margin:       [10, 10, 10, 10], // Margen i mm
-        filename:     'mit-epistemologiske-kompas.pdf',
-        image:        { type: 'jpeg', quality: 0.98 },
-        html2canvas:  { scale: 2, useCORS: true, windowWidth: 1200 },
-        jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' },
-        pagebreak:    { mode: ['avoid-all', 'css', 'legacy'] }
+        margin:       0,
+        filename:     'Mit_Epistemologiske_Forloeb.pdf',
+        image:        { type: 'jpeg', quality: 1 },
+        html2canvas:  { scale: 2, useCORS: true, logging: false },
+        jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
     };
     
     // Generate PDF
-    window.html2pdf().set(opt).from(printContainer).save().then(() => {
+    window.html2pdf().set(opt).from(element).save().then(() => {
         console.log('PDF genereret succesfuldt!');
-        document.body.removeChild(wrapper);
         exportPdfBtn.disabled = false;
         exportPdfBtn.textContent = 'Gem som PDF';
     }).catch(err => {
         console.error("PDF generation failed:", err);
-        document.body.removeChild(wrapper);
         exportPdfBtn.disabled = false;
         exportPdfBtn.textContent = 'Fejl! Prøv igen';
     });
