@@ -41,7 +41,7 @@ export default async (req, context) => {
         }
 
         const body = await req.json();
-        const { cards, quadrant, techRole } = body;
+        const { cards, quadrant, techRole, title, intention } = body;
         
         if (!cards || !quadrant || !techRole) {
             return new Response(JSON.stringify({ error: "Manglende data til feedback-generering." }), {
@@ -51,12 +51,15 @@ export default async (req, context) => {
         }
 
         const userPrompt = `
+Lærerens Forløbsnavn: ${title || 'Ikke angivet'}
+Lærerens pædagogiske intention med forløbet: "${intention || 'Ikke angivet'}"
+
 Lærerens valg af Teknologirolle: ${techRole}
 Beregnet Epistemologisk Kvadrant: ${quadrant}
 Udvalgte didaktiske handlingskort i forløbet:
 ${cards.map(c => "- " + c).join('\n')}
 
-Generer din feedback baseret på ovenstående data i Markdown-format.`;
+Generer din feedback baseret på ovenstående data i Markdown-format. Vurder særligt om de valgte kort og teknologirollen rent faktisk understøtter den angivne pædagogiske intention, eller om der er en diskrepans.`;
 
         const genAI = new GoogleGenerativeAI(apiKey);
         const model = genAI.getGenerativeModel({

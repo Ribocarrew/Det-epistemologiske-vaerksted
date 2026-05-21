@@ -6,6 +6,8 @@ let selectedCards = [];
 // DOM Elements
 const mainGrid = document.getElementById('main-cards-grid');
 const aiCardsGrid = document.getElementById('ai-cards-grid');
+const aiStarterGrid = document.getElementById('ai-starter-grid');
+const aiStarterSection = document.getElementById('ai-starter-section');
 const countElement = document.getElementById('count');
 const counterContainer = document.getElementById('counter');
 const nextBtn = document.getElementById('nextBtn');
@@ -21,10 +23,19 @@ const savedCustom = localStorage.getItem('epistemologisk_custom_cards');
 if (savedCustom) {
     try {
         customCards = JSON.parse(savedCustom);
-        // Add custom cards to main array for rendering
         cards.push(...customCards);
     } catch(e) {}
 }
+
+let starterCards = [];
+const savedStarter = localStorage.getItem('epistemologisk_starter_cards');
+if (savedStarter) {
+    try {
+        starterCards = JSON.parse(savedStarter);
+        cards.push(...starterCards);
+    } catch(e) {}
+}
+
 const savedState = localStorage.getItem('epistemologisk_selected_cards');
 if (savedState) {
     try {
@@ -118,12 +129,18 @@ function renderCards() {
         });
         
         // Append to correct grid
-        if (card.isCustom) {
+        if (card.isStarterAI) {
+            aiStarterGrid.appendChild(cardEl);
+        } else if (card.isCustom) {
             aiCardsGrid.appendChild(cardEl);
         } else {
             mainGrid.appendChild(cardEl);
         }
     });
+
+    if (starterCards && starterCards.length > 0) {
+        aiStarterSection.style.display = 'block';
+    }
 }
 
 // Toggle a card selection

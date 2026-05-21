@@ -11,6 +11,8 @@ const exportPdfBtn = document.getElementById('exportPdfBtn');
 // Load State
 const mirrorStateRaw = localStorage.getItem('epistemologisk_mirror_state');
 const techRole = localStorage.getItem('epistemologisk_tech_role');
+const courseTitle = localStorage.getItem('epistemologisk_course_title');
+const courseIntention = localStorage.getItem('epistemologisk_course_intention');
 
 if (!mirrorStateRaw || !techRole) {
     // State missing, redirect to start
@@ -29,6 +31,13 @@ if (savedCustom) {
 }
 
 function init() {
+    if (courseTitle) {
+        const headerTitle = document.getElementById('header-title');
+        const pdfHeaderTitle = document.getElementById('pdf-header-title');
+        if (headerTitle) headerTitle.textContent = courseTitle;
+        if (pdfHeaderTitle) pdfHeaderTitle.textContent = courseTitle;
+    }
+
     try {
         calculateAndPlot();
     } catch (e) {
@@ -135,7 +144,9 @@ async function calculateAndPlot() {
             body: JSON.stringify({
                 cards: selectedCardsText,
                 quadrant: quadrantName,
-                techRole: roleNames[techRole] || `Rolle ${techRole}`
+                techRole: roleNames[techRole] || `Rolle ${techRole}`,
+                title: courseTitle || 'Ikke angivet',
+                intention: courseIntention || 'Ikke angivet'
             }),
             signal: controller.signal
         });

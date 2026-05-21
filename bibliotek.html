@@ -40,6 +40,16 @@
             Du kan maksimalt vælge 9 kort. Fravælg et kort for at vælge et nyt.
         </div>
 
+        <!-- AI Starter Cards Section (fra Trin 0) -->
+        <section id="ai-starter-section" style="display: none; background-color: #F8FAFC; padding: 2rem; border-radius: var(--radius-card); box-shadow: var(--shadow-sm); border: 1px dashed var(--color-teal); margin-top: 2rem; margin-bottom: 2rem;">
+            <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                <span style="font-size: 1.5rem;">✨</span>
+                <h2 style="font-family: var(--font-heading); font-size: 1.3rem; color: var(--color-teal); margin: 0;">AI-Forslag til dit forløb</h2>
+            </div>
+            <p style="color: var(--color-muted); font-size: 0.95rem; margin-bottom: 1.5rem;">Baseret på din forløbsbeskrivelse har Gemini genereret disse kort til dig. Du kan vælge dem, hvis de giver mening for dig.</p>
+            <div id="ai-starter-grid" class="cards-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem;"></div>
+        </section>
+
         <!-- AI Custom Card Section -->
         <section class="ai-card-section" style="background-color: white; padding: 2rem; border-radius: var(--radius-card); box-shadow: var(--shadow-sm); border: 1px solid var(--color-teal-light); margin-top: 2rem;">
             <h2 style="font-family: var(--font-heading); font-size: 1.25rem; color: var(--color-teal); margin-bottom: 0.5rem;">Tilføj dit eget åbne kort</h2>

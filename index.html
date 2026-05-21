@@ -61,25 +61,58 @@
             </div>
 
             <div class="solution-box" style="background-color: white; border: 1px solid var(--color-teal-light); border-radius: var(--radius-card); padding: 2.5rem; box-shadow: var(--shadow-sm); margin-bottom: 1rem;">
-                <h3 style="font-family: var(--font-heading); color: var(--color-teal); font-size: 1.6rem; margin-bottom: 1rem;">Tag magten tilbage på 5 minutter.</h3>
+                <h3 style="font-family: var(--font-heading); color: var(--color-teal); font-size: 1.6rem; margin-bottom: 1rem;">Trin 0: Forløbets rammer</h3>
                 <p style="color: var(--color-text); opacity: 0.9; margin-bottom: 2rem; font-size: 1.05rem;">
                     Værkstedet er ikke en test, og der er ingen forkerte svar. Det er et hurtigt digitalt spejl til din forberedelse. Udvælg de handlinger, der kendetegner din undervisning, og få et AI-genereret kompas, der viser, om dit teknologivalg reelt støtter dine pædagogiske ambitioner &ndash; eller om det ubevidst spænder ben for dem.
                 </p>
-                <div class="hero-actions" style="display: flex; flex-wrap: wrap; gap: 1rem; justify-content: flex-start;">
-                    <a href="bibliotek.html" class="btn btn-primary cta-button" id="start-btn">
-                        <span class="btn-text">Start dit værksted her</span>
-                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.59-9.21l-4.24 4.24"></path>
-                        </svg>
-                    </a>
-                    <a href="bibliotek.html" class="btn btn-secondary cta-button" id="continue-btn" style="display: none;">
-                        <span class="btn-text">Fortsæt hvor du slap</span>
-                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <line x1="5" y1="12" x2="19" y2="12"></line>
-                            <polyline points="12 5 19 12 12 19"></polyline>
-                        </svg>
-                    </a>
+                
+                <div style="background-color: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 8px; padding: 1.5rem; margin-bottom: 2rem;">
+                    <h4 style="color: var(--color-nav); font-size: 1.1rem; margin-bottom: 0.5rem; margin-top: 0;">Hvorfor skal jeg udfylde dette?</h4>
+                    <p style="color: var(--color-text); font-size: 0.95rem; margin-bottom: 0; line-height: 1.5;">Værkstedet bruger din beskrivelse til at foreslå 2-3 skræddersyede handlingskort, så du ikke skal starte fra bunden. Din beskrivelse bliver også brugt til sidst, når AI'en skal sparre med dig om, hvorvidt dine valg reelt matcher dine intentioner.</p>
                 </div>
+
+                <form id="start-form">
+                    <div style="margin-bottom: 1.5rem;">
+                        <label for="course-title" style="display: block; font-weight: bold; color: var(--color-nav); margin-bottom: 0.5rem;">Hvad er navnet på dit forløb?</label>
+                        <input type="text" id="course-title" placeholder="f.eks. 'Brøker i 4. klasse' eller 'Kildekritik i Historie'" required style="width: 100%; padding: 0.75rem; border: 1px solid var(--color-teal-light); border-radius: 6px; font-family: var(--font-body); font-size: 1rem; box-sizing: border-box;">
+                    </div>
+
+                    <div style="margin-bottom: 1.5rem;">
+                        <label for="course-intention" style="display: block; font-weight: bold; color: var(--color-nav); margin-bottom: 0.5rem;">Beskriv kort din pædagogiske intention med forløbet</label>
+                        <textarea id="course-intention" placeholder="Hvad vil du gerne have, at eleverne skal tænke, gøre og lære?..." required maxlength="1000" style="width: 100%; padding: 0.75rem; border: 1px solid var(--color-teal-light); border-radius: 6px; font-family: var(--font-body); font-size: 1rem; min-height: 120px; resize: vertical; box-sizing: border-box;"></textarea>
+                        <div style="display: flex; justify-content: space-between; margin-top: 0.5rem;">
+                            <span id="char-count" style="font-size: 0.85rem; color: var(--color-muted);">0 / 1000 tegn</span>
+                            <span id="form-error" style="font-size: 0.85rem; color: #DC2626; display: none;">Der opstod en fejl. Prøv igen.</span>
+                        </div>
+                    </div>
+
+                    <div style="background-color: #FEF2F2; border: 1px solid #FCA5A5; border-radius: 8px; padding: 1rem; margin-bottom: 2rem; display: flex; gap: 0.75rem; align-items: flex-start;">
+                        <span style="font-size: 1.2rem; margin-top: -2px;">⚠️</span>
+                        <div>
+                            <strong style="color: #991B1B; font-size: 0.95rem; display: block; margin-bottom: 0.25rem;">GDPR og Datasikkerhed</strong>
+                            <p style="color: #7F1D1D; font-size: 0.9rem; margin-bottom: 0; line-height: 1.4;">Din beskrivelse sendes til en ekstern AI-model (Google Gemini) for at generere dine kort og feedback. Indtast derfor ALDRIG personfølsomme oplysninger, specifikke elevnavne eller personlige forhold i tekstfeltet.</p>
+                        </div>
+                    </div>
+
+                    <div class="hero-actions" style="display: flex; flex-wrap: wrap; gap: 1rem; justify-content: flex-start;">
+                        <button type="submit" class="btn btn-primary cta-button" id="start-btn" style="cursor: pointer; border: none; font-size: 1.1rem; padding: 0.8rem 1.5rem;">
+                            <span class="btn-text" id="start-btn-text">Gå til kortbibliotek</span>
+                            <svg id="start-btn-icon" class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.59-9.21l-4.24 4.24"></path>
+                            </svg>
+                            <svg id="start-btn-spinner" class="icon hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="animation: spin 1s linear infinite;">
+                                <path d="M21 12a9 9 0 1 1-6.219-8.56"></path>
+                            </svg>
+                        </button>
+                        <button type="button" class="btn btn-secondary cta-button" id="continue-btn" style="display: none; cursor: pointer; border: none; font-size: 1.1rem; padding: 0.8rem 1.5rem;">
+                            <span class="btn-text">Fortsæt hvor du slap</span>
+                            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg>
+                        </button>
+                    </div>
+                </form>
             </div>
         </header>
 
@@ -173,26 +206,6 @@
         <p>Jacob Witt-Larsen &middot; MIL-masterprojekt 2026</p>
     </footer>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const startBtn = document.getElementById('start-btn');
-            const continueBtn = document.getElementById('continue-btn');
-            
-            // Tjekker om der er gemt data i localStorage
-            const hasData = localStorage.getItem('selectedCards') || 
-                            localStorage.getItem('placedCards') || 
-                            localStorage.getItem('trin3Data') || 
-                            localStorage.getItem('trin4Data');
-            
-            if (hasData) {
-                continueBtn.style.display = 'inline-flex';
-            }
-            
-            // Hvis man starter et nyt forløb, slettes al localStorage data
-            startBtn.addEventListener('click', () => {
-                localStorage.clear();
-            });
-        });
-    </script>
+    <script type="module" src="index.js"></script>
 </body>
 </html>
