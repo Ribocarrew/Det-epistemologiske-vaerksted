@@ -263,20 +263,7 @@ const globalRoleNames = {
 };
 
 function generatePDF() {
-    console.log('Genererer PDF...');
-    
-    // Check if html2pdf is available
-    if (typeof window.html2pdf === 'undefined') {
-        console.error("html2pdf library is not loaded!");
-        alert("Kunne ikke indlæse PDF-motoren. Genindlæs siden og prøv igen.");
-        return;
-    }
-
-    const element = document.getElementById('pdf-export-template');
-    if (!element) {
-        console.error("PDF template not found!");
-        return;
-    }
+    console.log('Genererer PDF via print...');
     
     // 1. Populate Compass Dot
     let sumX = 0;
@@ -303,7 +290,6 @@ function generatePDF() {
     const pdfQuadrant = document.getElementById('pdf-quadrant-badge');
     if (pdfQuadrant && quadrantElem) {
         pdfQuadrant.textContent = quadrantElem.textContent;
-        // Keep the base class and add the dynamic badge class
         const badgeClass = Array.from(quadrantElem.classList).find(c => c.startsWith('badge-'));
         if (badgeClass) {
             pdfQuadrant.className = 'result-badge ' + badgeClass;
@@ -336,7 +322,7 @@ function generatePDF() {
         };
         
         mirrorState.forEach(slot => {
-            const cardObj = cards.find(c => c.id === slot.cardId);
+            const cardObj = cards.find(c => c.id == slot.cardId);
             if (cardObj && weightGroups[slot.weight]) {
                 weightGroups[slot.weight].cards.push(cardObj.text);
             }
@@ -368,27 +354,6 @@ function generatePDF() {
         });
     }
 
-    exportPdfBtn.disabled = true;
-    exportPdfBtn.textContent = 'Genererer PDF...';
-    
-    // Options based on user instruction
-    const opt = {
-        margin:       [10, 10, 10, 10], // Margen i mm for top, højre, bund, venstre
-        filename:     'Mit_Epistemologiske_Forloeb.pdf',
-        image:        { type: 'jpeg', quality: 1 },
-        html2canvas:  { scale: 2, useCORS: true, logging: false },
-        jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' },
-        pagebreak:    { mode: 'avoid-all' }
-    };
-    
-    // Generate PDF
-    window.html2pdf().set(opt).from(element).save().then(() => {
-        console.log('PDF genereret succesfuldt!');
-        exportPdfBtn.disabled = false;
-        exportPdfBtn.textContent = 'Gem som PDF';
-    }).catch(err => {
-        console.error("PDF generation failed:", err);
-        exportPdfBtn.disabled = false;
-        exportPdfBtn.textContent = 'Fejl! Prøv igen';
-    });
+    // Call native browser print
+    window.print();
 }
