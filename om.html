@@ -45,7 +45,7 @@
                     <li style="margin-bottom: 0.5rem;"><strong>Udvikler:</strong> Jacob Witt-Larsen</li>
                     <li style="margin-bottom: 0.5rem;"><strong>Uddannelse:</strong> MIL-masterprojekt, 2026 (Master i IKT & Læring)</li>
                     <li style="margin-bottom: 0.5rem;"><strong>Vejleder:</strong> Francesco Caviglia</li>
-                    <li><strong>Lokation:</strong> Byskolen, Nakskov, Lolland Kommune</li>
+                    <li><strong>Lokation:</strong> Aalborg Universitet (AAU)</li>
                 </ul>
             </div>
 
@@ -53,17 +53,20 @@
             <p style="margin-bottom: 1.5rem;">
                 Har du spørgsmål til værktøjet, det teoretiske fundament eller masterprojektet generelt? Udfyld formularen herunder, eller send en direkte mail.
             </p>
-            
-            <form style="display: flex; flex-direction: column; gap: 1rem; margin-bottom: 1.5rem;">
-                <input type="text" placeholder="Dit navn" style="padding: 1rem; border-radius: var(--radius-btn); border: 1px solid var(--color-teal-light); font-family: var(--font-body); font-size: 1rem; width: 100%; outline: none;" required>
-                <input type="email" placeholder="Din e-mailadresse" style="padding: 1rem; border-radius: var(--radius-btn); border: 1px solid var(--color-teal-light); font-family: var(--font-body); font-size: 1rem; width: 100%; outline: none;" required>
-                <textarea rows="5" placeholder="Din besked" style="padding: 1rem; border-radius: var(--radius-btn); border: 1px solid var(--color-teal-light); font-family: var(--font-body); font-size: 1rem; width: 100%; outline: none; resize: vertical;" required></textarea>
-                <button type="submit" class="btn btn-primary" style="align-self: flex-start; margin-top: 0.5rem;">Send besked</button>
-            </form>
-
-            <div style="border-top: 1px solid var(--color-teal-light); padding-top: 1.5rem;">
-                <a href="mailto:jacob@example.com" class="btn btn-secondary">Send en e-mail</a>
+            <div style="background-color: var(--color-bg); padding: 1.5rem; border-radius: var(--radius-btn); margin-bottom: 2.5rem; border: 1px solid var(--color-teal-light); display: flex; flex-direction: column; gap: 1rem; align-items: flex-start;">
+                <p style="margin: 0;">Du kan kontakte mig direkte på e-mail:</p>
+                <button id="emailBtn" class="btn btn-primary" style="font-family: var(--font-body); font-size: 1.1rem; padding: 1rem 2rem; cursor: pointer;">
+                    jaco227e@lollandskoler.dk
+                </button>
             </div>
+            
+            <script>
+                document.getElementById('emailBtn').addEventListener('click', () => {
+                    const email = 'jaco227e@lollandskoler.dk';
+                    const subject = encodeURIComponent('Henvendelse: Det Epistemologiske Værksted');
+                    window.location.href = `mailto:${email}?subject=${subject}`;
+                });
+            </script>
             
         </section>
     </main>

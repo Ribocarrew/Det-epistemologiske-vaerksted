@@ -37,6 +37,11 @@ function init() {
         if (headerTitle) headerTitle.textContent = courseTitle;
         if (pdfHeaderTitle) pdfHeaderTitle.textContent = courseTitle;
     }
+    
+    if (courseIntention) {
+        const pdfIntentionText = document.getElementById('pdf-intention-text');
+        if (pdfIntentionText) pdfIntentionText.textContent = courseIntention;
+    }
 
     try {
         calculateAndPlot();
