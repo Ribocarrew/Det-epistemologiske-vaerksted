@@ -11,7 +11,7 @@ Returner KUN et JSON objekt med et 'cards' array indeholdende kortene. Hvert kor
 {"text": "[Kort overskrift]", "description": "[Uddybende beskrivelse af handlingen]", "x": [int mellem -10 og 10], "y": [int mellem -10 og 10], "begrundelse": "[Kort begrundelse for placeringen på akserne]"}
 
 VIGTIGT: Du må KUN returnere et gyldigt JSON-objekt. Ingen markdown, ingen kodeblokke (\`\`\`json), ingen samtaletale. Kun ren JSON:
-{ "cards": [ { "text": "Kort titel", "description": "Kort beskrivelse", "x": 0, "y": 0, "begrundelse": "Begrundelse" } ] }\`;
+{ "cards": [ { "text": "Kort titel", "description": "Kort beskrivelse", "x": 0, "y": 0, "begrundelse": "Begrundelse" } ] }`;
 
 export default async (req, context) => {
     if (!Netlify.env.get("GEMINI_API_KEY")) {
