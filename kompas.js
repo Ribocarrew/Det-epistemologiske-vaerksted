@@ -313,7 +313,50 @@ function generatePDF() {
         pdfFeedback.innerHTML = resultFeedback.innerHTML;
     }
     
-    // 3. Populate Card List
+    // 3. Populate Text Diamond
+    const pdfDiamondContent = document.getElementById('pdf-diamond-content');
+    if (pdfDiamondContent) {
+        const weightGroups = {
+            3: [],
+            2: [],
+            1: [],
+            0.5: [],
+            0: []
+        };
+        mirrorState.forEach(slot => {
+            const cardObj = cards.find(c => c.id == slot.cardId);
+            if (cardObj && weightGroups[slot.weight] !== undefined) {
+                weightGroups[slot.weight].push(cardObj.text);
+            }
+        });
+
+        const levels = [
+            { label: 'Øverst (Mest kendetegnende for forløbet)', w: 3 },
+            { label: 'Høj betydning', w: 2 },
+            { label: 'Middel betydning', w: 1 },
+            { label: 'Mindre betydning', w: 0.5 },
+            { label: 'Nederst (Mindst kendetegnende for forløbet)', w: 0 }
+        ];
+
+        let diamondHtml = '';
+        levels.forEach(l => {
+            const rowCards = weightGroups[l.w];
+            if (rowCards.length > 0) {
+                diamondHtml += `<div style="margin-bottom: 0.85rem;">`;
+                diamondHtml += `<div style="font-size: 0.75rem; font-weight: bold; color: #6B7280; text-transform: uppercase; margin-bottom: 0.2rem; font-family: Montserrat, sans-serif;">${l.label}</div>`;
+                diamondHtml += `<div style="font-size: 0.95rem; color: #155E5E; font-weight: 600;">`;
+                if (rowCards.length === 1) {
+                    diamondHtml += `<span>${rowCards[0]}</span>`;
+                } else {
+                    diamondHtml += rowCards.map(c => `<span>${c}</span>`).join('<span style="margin: 0 0.75rem; color: #94A3B8;">✦</span>');
+                }
+                diamondHtml += `</div></div>`;
+            }
+        });
+        pdfDiamondContent.innerHTML = diamondHtml;
+    }
+
+    // 4. Populate Card List
     const pdfCardList = document.getElementById('pdf-card-list');
     if (pdfCardList) {
         pdfCardList.innerHTML = ''; // Clear previous
