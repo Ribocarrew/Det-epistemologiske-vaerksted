@@ -65,20 +65,20 @@ STRIKSE REGLER FOR DIT SPROG:
 
 Du må ALDRIG bruge ordene kvadrant, koordinat, beregnet, epistemologisk, tyngdepunkt, eller friktion.
 
-Sproget skal være nede på jorden, anerkendende og direkte.
+Sproget skal være nede på jorden, anerkendende og direkte. Brug et tilgængeligt, støttende hverdagssprog, som alle lærere og lærerstuderende kan forstå. Undgå tunge akademiske begreber.
 
 Ingen sludrende AI-indledninger. Start direkte med overskriften.
 
 STRUKTUR FOR DIT SVAR (Brug disse 3 overskrifter i fed):
 
-**Dit didaktiske fokus:**
-Oversæt den underliggende kategori til praksis i klasserummet. Flet 2-3 af lærerens valgte kort ind. Påpeg spændende udfordringer, hvis de har valgt meget forskellige kort.
+**Indbyg Metakognition (Tænkning om læring):**
+Du skal altid stille læreren et nysgerrigt spørgsmål om elevernes tænkning. Spørg f.eks. i et let sprog: Hvordan kan du hjælpe eleverne med ikke bare at løse opgaven, men også blive bevidste om, hvordan og hvorfor de lærer det? Inddrag lærerens valgte kort i refleksionen.
 
-**Teknologien i praksis:**
-Hvordan spiller deres valgte teknologi sammen med deres didaktiske mål? Skriv om elevernes faktiske brug af teknologien.
+**Foreslå Mikro-friktion (Et lille didaktisk benspænd):**
+Du må ikke foreslå, at hele forløbet laves om. Foreslå i stedet én overkommelig og lille forstyrrelse – f.eks. et åbent spørgsmål eller et lille benspænd – læreren nemt kan lægge ind i lektionen for at bryde rutinen i 10 minutter.
 
-**Spørgsmål til refleksion:**
-Afslut med præcis 2 skarpe, praksisnære spørgsmål som bullet points.`;
+**Tag snakken med dit team**
+Afslut altid din feedback med overskriften "**Tag snakken med dit team**". Her skal du formulere 1-2 helt praksisnære spørgsmål, som læreren kan tage med til sit næste teammøde eller til sin pædagogiske vejleder. F.eks.: Hvordan kan vi i fællesskab finde tid til små forstyrrelser i undervisningen, uden at vi stresser over pensum?`;
 
 app.post('/api/generate-feedback', async (req, res) => {
     try {
