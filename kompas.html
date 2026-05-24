@@ -103,7 +103,7 @@
                 </div>
 
                 <div class="actions" style="margin-top: 3rem; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-                    <button id="exportPdfBtn" class="btn btn-primary">Gem som PDF</button>
+                    <button id="exportPdfBtn" class="btn btn-primary">Udskriv / Gem som PDF</button>
                     <button id="resetBtn" class="btn btn-secondary">Start et nyt forløb</button>
                 </div>
             </div>
@@ -112,95 +112,95 @@
 
         <!-- Hidden PDF Template -->
         <div id="pdf-export-wrapper" class="pdf-hidden-container">
-            <div id="pdf-export-template" style="width: 210mm; padding: 0 20mm 20mm 20mm; margin: 0; background-color: white; color: black; font-family: Montserrat, sans-serif; box-sizing: border-box;">
-                <h1 id="pdf-header-title" style="margin-top: 0; padding-top: 0; color: #155E5E; border-bottom: 2px solid #D1EEEE; padding-bottom: 1rem; margin-bottom: 1rem; font-size: 2rem; text-align: center;">Mit Epistemologiske Forløbsdesign</h1>
+            <div id="pdf-export-template" style="width: 210mm; margin: 0; background-color: white; color: black; font-family: Montserrat, sans-serif; box-sizing: border-box;">
                 
-                <div style="margin-bottom: 2rem; padding: 1.5rem; background-color: #F8FAFC; border-left: 4px solid #155E5E; border-radius: 4px; width: 100%;">
-                    <strong style="display: block; color: #155E5E; font-size: 1rem; margin-bottom: 0.5rem; text-transform: uppercase;">Din pædagogiske intention:</strong>
-                    <p id="pdf-intention-text" style="color: #334155; font-size: 1.05rem; line-height: 1.6; margin: 0; font-family: 'Source Serif 4', serif;">Intention kommer her...</p>
+                <!-- Side 1 (Overblik & Kompas) -->
+                <div style="page-break-after: always; padding: 20mm;">
+                    <h1 id="pdf-header-title" style="margin-top: 0; padding-top: 0; color: #155E5E; border-bottom: 2px solid #D1EEEE; padding-bottom: 1rem; margin-bottom: 1rem; font-size: 2rem; text-align: center;">Mit Epistemologiske Forløbsdesign</h1>
+                    
+                    <div style="margin-bottom: 2rem; padding: 1.5rem; background-color: #F8FAFC; border-left: 4px solid #155E5E; border-radius: 4px; width: 100%;">
+                        <strong style="display: block; color: #155E5E; font-size: 1rem; margin-bottom: 0.5rem; text-transform: uppercase;">Din pædagogiske intention:</strong>
+                        <p id="pdf-intention-text" style="color: #334155; font-size: 1.05rem; line-height: 1.6; margin: 0; font-family: 'Source Serif 4', serif;">Intention kommer her...</p>
+                    </div>
+
+                    <div style="display: flex; flex-direction: column; align-items: center; gap: 2rem;">
+                        
+                        <!-- Robust Compass -->
+                        <div style="width: 500px; height: 500px; position: relative;">
+                            <!-- Quadrant Backgrounds -->
+                            <div style="position: absolute; top: 0; left: 0; width: 50%; height: 50%; background-color: #D1FAE5; opacity: 0.6;"></div>
+                            <div style="position: absolute; top: 0; left: 50%; width: 50%; height: 50%; background-color: #CCFBF1; opacity: 0.6;"></div>
+                            <div style="position: absolute; top: 50%; left: 0; width: 50%; height: 50%; background-color: #FEF9C3; opacity: 0.6;"></div>
+                            <div style="position: absolute; top: 50%; left: 50%; width: 50%; height: 50%; background-color: #EDE9FE; opacity: 0.6;"></div>
+                            
+                            <!-- Axes -->
+                            <div style="position: absolute; top: 0; left: 50%; width: 0px; height: 100%; border-left: 2px dashed #155E5E; transform: translateX(-50%); z-index: 2;"></div>
+                            <div style="position: absolute; top: 50%; left: 0; width: 100%; height: 0px; border-top: 2px dashed #155E5E; transform: translateY(-50%); z-index: 2;"></div>
+
+                            <!-- Center point -->
+                            <div style="position: absolute; top: 50%; left: 50%; width: 8px; height: 8px; background-color: #155E5E; border-radius: 50%; transform: translate(-50%, -50%); z-index: 3;"></div>
+                            
+                            <!-- Dynamic Dot will be injected here via JS -->
+                            <div id="pdf-dot" style="position: absolute; width: 16px; height: 16px; background-color: #F59E0B; border-radius: 50%; transform: translate(-50%, -50%); z-index: 10; left: 50%; top: 50%;"></div>
+                            
+                            <!-- Labels -->
+                            <div style="position: absolute; top: 10px; left: 10px; font-size: 0.85rem; font-weight: bold; color: #064E3B; z-index: 10;">Systematisk Analyse</div>
+                            <div style="position: absolute; top: 10px; right: 10px; font-size: 0.85rem; font-weight: bold; color: #134E4A; z-index: 10; text-align: right;">Åben Udforskning</div>
+                            <div style="position: absolute; bottom: 10px; left: 10px; font-size: 0.85rem; font-weight: bold; color: #713F12; z-index: 10;">Målrettet Tilegnelse</div>
+                            <div style="position: absolute; bottom: 10px; right: 10px; font-size: 0.85rem; font-weight: bold; color: #3B0764; z-index: 10; text-align: right;">Styret Produktion</div>
+                            
+                            <!-- Axes Labels -->
+                            <div style="position: absolute; top: -30px; left: 50%; transform: translateX(-50%); font-weight: bold; font-size: 0.85rem; color: #155E5E; text-transform: uppercase;">Friktion</div>
+                            <div style="position: absolute; bottom: -30px; left: 50%; transform: translateX(-50%); font-weight: bold; font-size: 0.85rem; color: #155E5E; text-transform: uppercase;">Glat</div>
+                            <div style="position: absolute; top: 50%; left: -60px; transform: translateY(-50%) rotate(-90deg); font-weight: bold; font-size: 0.85rem; color: #155E5E; text-transform: uppercase;">Øjet</div>
+                            <div style="position: absolute; top: 50%; right: -70px; transform: translateY(-50%) rotate(90deg); font-weight: bold; font-size: 0.85rem; color: #155E5E; text-transform: uppercase;">Hånden</div>
+                        </div>
+                        
+                        <!-- Læsevejledning til kompasset -->
+                        <div style="width: 100%; color: #4B5563; font-size: 0.875rem; line-height: 1.6; padding: 1rem; background-color: #F9FAFB; border-radius: 8px; border: 1px solid #E5E7EB;">
+                            <strong style="display: block; margin-bottom: 0.5rem; color: #374151;">Sådan læses kompasset:</strong>
+                            <ul style="list-style: none; padding: 0; margin: 0; text-align: left;">
+                                <li style="margin-bottom: 0.5rem;">• <strong>Øjet vs. Hånden (Vandret):</strong> Lægger forløbet op til observation og analyse (Øjet), eller skabelse og handling (Hånden)?</li>
+                                <li>• <strong>Glat vs. Friktion (Lodret):</strong> Glider processen ad en fastlagt sti (Glat), eller er der bevidst indbygget kognitiv modstand og undren (Friktion)?</li>
+                            </ul>
+                        </div>
+                        
+                        <!-- Den usynlige skole-arv (PDF) -->
+                        <div style="width: 100%; background-color: #FEF3C7; border-left: 4px solid #F59E0B; padding: 1.5rem; border-radius: 8px; display: flex; gap: 1rem; align-items: flex-start; box-sizing: border-box;">
+                            <div style="font-size: 2rem; flex-shrink: 0;" aria-hidden="true">💡</div>
+                            <div>
+                                <h3 style="margin-top: 0; color: #92400E; font-size: 1.2rem; font-family: Montserrat, sans-serif; margin-bottom: 0.5rem;">Den usynlige skole-arv</h3>
+                                <p style="margin: 0; color: #92400E; font-size: 1.05rem; line-height: 1.6; font-family: 'Source Serif 4', serif;">Forskning peger på, at vi som lærere ofte ubevidst kommer til at designe undervisning, der ligner den skole, vi selv gik i. Prøv at kaste et blik på dine valgte kort: Hvor mange af dem afspejler egentlig dine egne minder fra folkeskolen? Tager du et aktivt valg her, eller kører undervisningen på en velkendt automatpilot?</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- Text Diamond Section -->
-                <div id="pdf-diamond-section" style="width: 100%; margin-bottom: 2rem; text-align: center; font-family: 'Source Serif 4', serif; page-break-inside: avoid;">
-                    <h2 style="color: #155E5E; font-size: 1.3rem; margin-bottom: 1rem; font-family: Montserrat, sans-serif; border-bottom: 1px solid #D1EEEE; padding-bottom: 0.5rem; display: inline-block;">Dine udvalgte handlingskort og prioriteringer</h2>
-                    <div id="pdf-diamond-content" style="background-color: #F9FAFB; padding: 1.25rem; border-radius: 8px; border: 1px solid #E5E7EB; line-height: 1.4;">
+                <!-- Side 2 (AI-Feedback) -->
+                <div style="page-break-after: always; padding: 20mm;">
+                    <div id="pdf-quadrant-badge" class="result-badge" style="display: inline-block; font-weight: 800; font-size: 0.85rem; padding: 0.4rem 1rem; border-radius: 9999px; margin-bottom: 1rem; text-transform: uppercase; border: 1px solid #155E5E; background: #F7F3EF;">Kvadrant</div>
+                    <h2 style="font-size: 1.5rem; color: #155E5E; margin-bottom: 1rem; margin-top: 0;">Din Feedback-profil</h2>
+                    <div style="margin-bottom: 1.5rem; border-bottom: 1px solid #D1EEEE; padding-bottom: 1rem;">
+                        <span style="font-size: 0.8rem; color: #666; text-transform: uppercase; display: block; margin-bottom: 0.25rem;">Teknologirolle</span>
+                        <span id="pdf-tech-role" style="font-weight: 700; font-size: 1.1rem; color: #155E5E;">A</span>
+                    </div>
+                    <div id="pdf-feedback-text" style="font-family: 'Source Serif 4', serif; font-size: 1.1rem; line-height: 1.7; color: #2B2B2B;">
+                        Feedback tekst...
+                    </div>
+                </div>
+
+                <!-- Side 3 (Den visuelle diamant) -->
+                <div style="padding: 20mm; text-align: center;">
+                    <h2 style="color: #155E5E; font-size: 1.5rem; margin-bottom: 0.5rem; font-family: Montserrat, sans-serif;">Dine udvalgte handlingskort (Diamantsortering)</h2>
+                    <p style="color: #6B7280; font-size: 1rem; margin-bottom: 2rem; font-family: 'Source Serif 4', serif;">Mest karakteristisk i toppen - Mindst karakteristisk i bunden</p>
+                    <div id="pdf-diamond-content" style="background-color: #F9FAFB; padding: 2rem; border-radius: 8px; border: 1px solid #E5E7EB; line-height: 1.4;">
                         <!-- Injected via JS -->
                     </div>
                 </div>
 
-                <div style="display: flex; flex-direction: column; align-items: center; gap: 2rem;">
-                    
-                    <!-- Robust Compass -->
-                    <div style="width: 500px; height: 500px; position: relative;">
-                        <!-- Quadrant Backgrounds -->
-                        <div style="position: absolute; top: 0; left: 0; width: 50%; height: 50%; background-color: #D1FAE5; opacity: 0.6;"></div>
-                        <div style="position: absolute; top: 0; left: 50%; width: 50%; height: 50%; background-color: #CCFBF1; opacity: 0.6;"></div>
-                        <div style="position: absolute; top: 50%; left: 0; width: 50%; height: 50%; background-color: #FEF9C3; opacity: 0.6;"></div>
-                        <div style="position: absolute; top: 50%; left: 50%; width: 50%; height: 50%; background-color: #EDE9FE; opacity: 0.6;"></div>
-                        
-                        <!-- Axes -->
-                        <div style="position: absolute; top: 0; left: 50%; width: 0px; height: 100%; border-left: 2px dashed #155E5E; transform: translateX(-50%); z-index: 2;"></div>
-                        <div style="position: absolute; top: 50%; left: 0; width: 100%; height: 0px; border-top: 2px dashed #155E5E; transform: translateY(-50%); z-index: 2;"></div>
-
-                        <!-- Center point -->
-                        <div style="position: absolute; top: 50%; left: 50%; width: 8px; height: 8px; background-color: #155E5E; border-radius: 50%; transform: translate(-50%, -50%); z-index: 3;"></div>
-                        
-                        <!-- Dynamic Dot will be injected here via JS -->
-                        <div id="pdf-dot" style="position: absolute; width: 16px; height: 16px; background-color: #F59E0B; border-radius: 50%; transform: translate(-50%, -50%); z-index: 10; left: 50%; top: 50%;"></div>
-                        
-                        <!-- Labels -->
-                        <div style="position: absolute; top: 10px; left: 10px; font-size: 0.85rem; font-weight: bold; color: #064E3B; z-index: 10;">Systematisk Analyse</div>
-                        <div style="position: absolute; top: 10px; right: 10px; font-size: 0.85rem; font-weight: bold; color: #134E4A; z-index: 10; text-align: right;">Åben Udforskning</div>
-                        <div style="position: absolute; bottom: 10px; left: 10px; font-size: 0.85rem; font-weight: bold; color: #713F12; z-index: 10;">Målrettet Tilegnelse</div>
-                        <div style="position: absolute; bottom: 10px; right: 10px; font-size: 0.85rem; font-weight: bold; color: #3B0764; z-index: 10; text-align: right;">Styret Produktion</div>
-                        
-                        <!-- Axes Labels -->
-                        <div style="position: absolute; top: -30px; left: 50%; transform: translateX(-50%); font-weight: bold; font-size: 0.85rem; color: #155E5E; text-transform: uppercase;">Friktion</div>
-                        <div style="position: absolute; bottom: -30px; left: 50%; transform: translateX(-50%); font-weight: bold; font-size: 0.85rem; color: #155E5E; text-transform: uppercase;">Glat</div>
-                        <div style="position: absolute; top: 50%; left: -60px; transform: translateY(-50%) rotate(-90deg); font-weight: bold; font-size: 0.85rem; color: #155E5E; text-transform: uppercase;">Øjet</div>
-                        <div style="position: absolute; top: 50%; right: -70px; transform: translateY(-50%) rotate(90deg); font-weight: bold; font-size: 0.85rem; color: #155E5E; text-transform: uppercase;">Hånden</div>
-                    </div>
-                    
-                    <!-- Læsevejledning til kompasset -->
-                    <div style="width: 100%; color: #4B5563; font-size: 0.875rem; line-height: 1.6; padding: 1rem; background-color: #F9FAFB; border-radius: 8px; border: 1px solid #E5E7EB;">
-                        <strong style="display: block; margin-bottom: 0.5rem; color: #374151;">Sådan læses kompasset:</strong>
-                        <ul style="list-style: none; padding: 0; margin: 0; text-align: left;">
-                            <li style="margin-bottom: 0.5rem;">• <strong>Øjet vs. Hånden (Vandret):</strong> Lægger forløbet op til observation og analyse (Øjet), eller skabelse og handling (Hånden)?</li>
-                            <li>• <strong>Glat vs. Friktion (Lodret):</strong> Glider processen ad en fastlagt sti (Glat), eller er der bevidst indbygget kognitiv modstand og undren (Friktion)?</li>
-                        </ul>
-                    </div>
-                    <!-- Den usynlige skole-arv (PDF) -->
-                    <div style="width: 100%; margin-top: 1.5rem; background-color: #FEF3C7; border-left: 4px solid #F59E0B; padding: 1.5rem; border-radius: 8px; display: flex; gap: 1rem; align-items: flex-start; box-sizing: border-box;">
-                        <div style="font-size: 2rem; flex-shrink: 0;" aria-hidden="true">💡</div>
-                        <div>
-                            <h3 style="margin-top: 0; color: #92400E; font-size: 1.2rem; font-family: Montserrat, sans-serif; margin-bottom: 0.5rem;">Den usynlige skole-arv</h3>
-                            <p style="margin: 0; color: #92400E; font-size: 1.05rem; line-height: 1.6; font-family: 'Source Serif 4', serif;">Forskning peger på, at vi som lærere ofte ubevidst kommer til at designe undervisning, der ligner den skole, vi selv gik i. Prøv at kaste et blik på dine valgte kort: Hvor mange af dem afspejler egentlig dine egne minder fra folkeskolen? Tager du et aktivt valg her, eller kører undervisningen på en velkendt automatpilot?</p>
-                        </div>
-                    </div>
-
-                    <!-- Feedback Profil -->
-                    <div style="width: 100%; margin-top: 1rem;">
-                        <div id="pdf-quadrant-badge" class="result-badge" style="display: inline-block; font-weight: 800; font-size: 0.85rem; padding: 0.4rem 1rem; border-radius: 9999px; margin-bottom: 1rem; text-transform: uppercase; border: 1px solid #155E5E; background: #F7F3EF;">Kvadrant</div>
-                        <h2 style="font-size: 1.5rem; color: #155E5E; margin-bottom: 1rem; margin-top: 0;">Din Feedback-profil</h2>
-                        <div style="margin-bottom: 1.5rem; border-bottom: 1px solid #D1EEEE; padding-bottom: 1rem;">
-                            <span style="font-size: 0.8rem; color: #666; text-transform: uppercase; display: block; margin-bottom: 0.25rem;">Teknologirolle</span>
-                            <span id="pdf-tech-role" style="font-weight: 700; font-size: 1.1rem; color: #155E5E;">A</span>
-                        </div>
-                        <div id="pdf-feedback-text" style="font-family: 'Source Serif 4', serif; font-size: 1.1rem; line-height: 1.7; color: #2B2B2B;">
-                            Feedback tekst...
-                        </div>
-                    </div>
-
-                    <!-- Prioriteringslisten -->
-                    <div style="width: 100%; margin-top: 2rem; page-break-before: always;">
-                        <h2 style="color: #155E5E; border-bottom: 2px solid #D1EEEE; padding-bottom: 1rem; margin-bottom: 1.5rem;">Prioriteringslisten (Spejlet)</h2>
-                        <div id="pdf-card-list">
-                            <!-- Cards will be injected here -->
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
+
     </main>
 
     <script type="module" src="kompas.js"></script>

@@ -313,7 +313,7 @@ function generatePDF() {
         pdfFeedback.innerHTML = resultFeedback.innerHTML;
     }
     
-    // 3. Populate Text Diamond
+    // 3. Populate Visual Diamond (Page 3)
     const pdfDiamondContent = document.getElementById('pdf-diamond-content');
     if (pdfDiamondContent) {
         const weightGroups = {
@@ -326,80 +326,57 @@ function generatePDF() {
         mirrorState.forEach(slot => {
             const cardObj = cards.find(c => c.id == slot.cardId);
             if (cardObj && weightGroups[slot.weight] !== undefined) {
-                weightGroups[slot.weight].push(cardObj.text);
+                weightGroups[slot.weight].push(cardObj);
             }
         });
 
+        const getBgColor = (quadrant) => {
+            if (quadrant === 'AT') return '#ecfdf5'; // light emerald
+            if (quadrant === 'TB') return '#f0fdfa'; // light teal
+            if (quadrant === 'IR') return '#fefce8'; // light yellow
+            if (quadrant === 'SA') return '#faf5ff'; // light purple
+            return '#f8fafc';
+        };
+
+        const getBorderColor = (quadrant) => {
+            if (quadrant === 'AT') return '#10b981'; // emerald
+            if (quadrant === 'TB') return '#14b8a6'; // teal
+            if (quadrant === 'IR') return '#eab308'; // yellow
+            if (quadrant === 'SA') return '#a855f7'; // purple
+            return '#cbd5e1';
+        };
+
+        const createCardHTML = (cardObj) => {
+            const bg = getBgColor(cardObj.quadrant);
+            const border = getBorderColor(cardObj.quadrant);
+            return \`
+                <div style="background-color: \${bg}; border: 1px solid \${border}; border-radius: 6px; padding: 1rem; width: 150px; height: 110px; display: flex; align-items: center; justify-content: center; text-align: center; font-size: 0.75rem; font-weight: 600; color: #1e293b; box-shadow: 0 1px 2px rgba(0,0,0,0.05); overflow: hidden; font-family: Montserrat, sans-serif; box-sizing: border-box; line-height: 1.3;">
+                    \${cardObj.text}
+                </div>
+            \`;
+        };
+
         const levels = [
-            { label: 'Øverst (Mest kendetegnende for forløbet)', w: 3 },
-            { label: 'Høj betydning', w: 2 },
-            { label: 'Middel betydning', w: 1 },
-            { label: 'Mindre betydning', w: 0.5 },
-            { label: 'Nederst (Mindst kendetegnende for forløbet)', w: 0 }
+            { w: 3 },
+            { w: 2 },
+            { w: 1 },
+            { w: 0.5 },
+            { w: 0 }
         ];
 
-        let diamondHtml = '';
+        let diamondHtml = '<div style="display: flex; flex-direction: column; align-items: center; gap: 1.5rem; width: 100%; padding: 1rem 0;">';
         levels.forEach(l => {
             const rowCards = weightGroups[l.w];
             if (rowCards.length > 0) {
-                diamondHtml += `<div style="margin-bottom: 0.85rem;">`;
-                diamondHtml += `<div style="font-size: 0.75rem; font-weight: bold; color: #6B7280; text-transform: uppercase; margin-bottom: 0.2rem; font-family: Montserrat, sans-serif;">${l.label}</div>`;
-                diamondHtml += `<div style="font-size: 0.95rem; color: #155E5E; font-weight: 600;">`;
-                if (rowCards.length === 1) {
-                    diamondHtml += `<span>${rowCards[0]}</span>`;
-                } else {
-                    diamondHtml += rowCards.map(c => `<span>${c}</span>`).join('<span style="margin: 0 0.75rem; color: #94A3B8;">✦</span>');
-                }
-                diamondHtml += `</div></div>`;
-            }
-        });
-        pdfDiamondContent.innerHTML = diamondHtml;
-    }
-
-    // 4. Populate Card List
-    const pdfCardList = document.getElementById('pdf-card-list');
-    if (pdfCardList) {
-        pdfCardList.innerHTML = ''; // Clear previous
-        
-        const weightGroups = {
-            3: { label: 'Mest karakteristisk (x3)', cards: [] },
-            2: { label: 'Meget karakteristisk (x2)', cards: [] },
-            1: { label: 'Karakteristisk (x1)', cards: [] },
-            0.5: { label: 'Mindre karakteristisk (x0.5)', cards: [] },
-            0: { label: 'Mindst karakteristisk (x0)', cards: [] }
-        };
-        
-        mirrorState.forEach(slot => {
-            const cardObj = cards.find(c => c.id == slot.cardId);
-            if (cardObj && weightGroups[slot.weight]) {
-                weightGroups[slot.weight].cards.push(cardObj.text);
-            }
-        });
-        
-        [3, 2, 1, 0.5, 0].forEach(weight => {
-            const group = weightGroups[weight];
-            if (group.cards.length > 0) {
-                const groupDiv = document.createElement('div');
-                groupDiv.style.marginBottom = '1.5rem';
-                groupDiv.innerHTML = `<h3 style="color: #CA8A04; font-size: 1.2rem; margin-bottom: 0.5rem; margin-top: 0;">${group.label}</h3>`;
-                const ul = document.createElement('ul');
-                ul.style.listStyleType = 'none';
-                ul.style.padding = '0';
-                ul.style.margin = '0';
-                ul.style.fontFamily = "'Source Serif 4', serif";
-                ul.style.color = '#2B2B2B';
-                
-                group.cards.forEach(text => {
-                    const li = document.createElement('li');
-                    li.textContent = "• " + text;
-                    li.style.marginBottom = '0.5rem';
-                    li.style.paddingLeft = '0.5rem';
-                    ul.appendChild(li);
+                diamondHtml += \`<div style="display: flex; gap: 1.5rem; justify-content: center;">\`;
+                rowCards.forEach(c => {
+                    diamondHtml += createCardHTML(c);
                 });
-                groupDiv.appendChild(ul);
-                pdfCardList.appendChild(groupDiv);
+                diamondHtml += \`</div>\`;
             }
         });
+        diamondHtml += '</div>';
+        pdfDiamondContent.innerHTML = diamondHtml;
     }
 
     // Call native browser print

@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
         intentionInput.disabled = true;
         startBtnIcon.classList.add('hidden');
         startBtnSpinner.classList.remove('hidden');
-        startBtnText.textContent = "Genererer start-kort...";
+        startBtnText.textContent = "✨ AI'en bygger dine kort...";
         formError.style.display = 'none';
 
         try {
