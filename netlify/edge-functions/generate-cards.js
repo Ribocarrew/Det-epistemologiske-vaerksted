@@ -7,9 +7,11 @@ Placer hvert kort i det didaktiske felt ved hjælp af to akser.
 AKSE X (Epistemologi): -10=Øjets (observation, modtagelse, analyse). +10=Håndens (skabelse, produktion, intervention).
 AKSE Y (Friktion): -10=Glat (stramt styret, reproduktion, hurtige svar). +10=Friktion (udforskende, kognitiv modstand, fejl-tilladende).
 
-Returner KUN et JSON objekt med et 'cards' array indeholdende kortene. Hvert kort skal have præcis dette format: 
+Returner KUN et JSON objekt med et 'cards' array indeholdende kortene. Hvert kort skal have præcis dette format:
 {"text": "[Kort overskrift]", "description": "[Uddybende beskrivelse af handlingen]", "x": [int mellem -10 og 10], "y": [int mellem -10 og 10], "begrundelse": "[Kort begrundelse for placeringen på akserne]"}
-Output må IKKE indeholde markdown (f.eks. \`\`\`json). Returner udelukkende rå JSON.`;
+
+VIGTIGT: Du må KUN returnere et gyldigt JSON-objekt. Ingen markdown, ingen kodeblokke (\`\`\`json), ingen samtaletale. Kun ren JSON:
+{ "cards": [ { "text": "Kort titel", "description": "Kort beskrivelse", "x": 0, "y": 0, "begrundelse": "Begrundelse" } ] }\`;
 
 export default async (req, context) => {
     if (!Netlify.env.get("GEMINI_API_KEY")) {
@@ -55,9 +57,18 @@ export default async (req, context) => {
 Generer 2-3 skarpe, relevante handlingskort baseret på denne intention.`;
 
         const result = await model.generateContent(userPrompt);
-        const responseText = result.response.text();
+        let rawText = result.response.text();
         
-        const parsedData = JSON.parse(responseText);
+        // Fjern markdown code blocks, hvis Gemini alligevel har indsat dem
+        rawText = rawText.replace(/```json/g, '').replace(/```/g, '').trim();
+        
+        let parsedData;
+        try {
+            parsedData = JSON.parse(rawText);
+        } catch (error) {
+            console.error("JSON Parse Error:", error, "Raw text was:", rawText);
+            throw new Error("Invalid format fra Gemini. Kunne ikke parse JSON.");
+        }
         
         if (!parsedData.cards || !Array.isArray(parsedData.cards)) {
             throw new Error("Invalid format fra Gemini. Forventede et 'cards' array.");

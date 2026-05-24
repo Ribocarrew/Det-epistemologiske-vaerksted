@@ -101,16 +101,19 @@ document.addEventListener('DOMContentLoaded', () => {
             window.location.href = 'bibliotek.html';
 
         } catch (error) {
-            console.error(error);
-            formError.textContent = error.message;
+            console.error("AI Generation Error:", error);
+            
+            // Fallback UX: Don't block the user. Show a friendly message and proceed.
+            formError.textContent = "AI'en kunne desværre ikke generere kort lige nu. Du sendes videre til biblioteket...";
+            formError.style.color = '#D97706'; // Warning orange instead of error red
             formError.style.display = 'inline';
             
-            startBtn.disabled = false;
-            titleInput.disabled = false;
-            intentionInput.disabled = false;
-            startBtnIcon.classList.remove('hidden');
+            startBtnText.textContent = "Videre...";
             startBtnSpinner.classList.add('hidden');
-            startBtnText.textContent = "Prøv igen";
+            
+            setTimeout(() => {
+                window.location.href = 'bibliotek.html';
+            }, 2500);
         }
     });
 });
