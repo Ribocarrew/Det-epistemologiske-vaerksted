@@ -117,10 +117,10 @@ async function calculateAndPlot() {
     feedbackMessage.style.opacity = '1';
     feedbackMessage.style.fontFamily = "'Source Serif 4', serif";
     feedbackMessage.style.lineHeight = "1.6";
-    feedbackMessage.innerHTML = `
+    feedbackMessage.innerHTML = \`
         <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 2rem; text-align: center; animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;">
             <svg class="spinner" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--color-teal)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="animation: spin 1s linear infinite; margin-bottom: 1rem;"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
-            <span style="color: var(--color-teal); font-weight: bold; font-family: var(--font-body);">Analyserer dit epistemologiske design og genererer refleksionsspørgsmål...</span>
+            <span style="color: var(--color-teal); font-weight: bold; font-family: var(--font-body);">Genererer din feedback-profil...</span>
         </div>
         <style>
             @keyframes pulse {
@@ -128,13 +128,13 @@ async function calculateAndPlot() {
                 50% { opacity: .5; }
             }
         </style>
-    `;
+    \`;
 
     try {
         // Find text for selected cards
         const selectedCardsText = mirrorState.map(slot => {
             const cardObj = cards.find(c => c.id === slot.cardId);
-            return cardObj ? cardObj.text : `Kort ${slot.cardId}`;
+            return cardObj ? cardObj.text : \`Kort \${slot.cardId}\`;
         });
 
         // 30 seconds timeout
@@ -149,7 +149,7 @@ async function calculateAndPlot() {
             body: JSON.stringify({
                 cards: selectedCardsText,
                 quadrant: quadrantName,
-                techRole: roleNames[techRole] || `Rolle ${techRole}`,
+                techRole: roleNames[techRole] || \`Rolle \${techRole}\`,
                 title: courseTitle || 'Ikke angivet',
                 intention: courseIntention || 'Ikke angivet'
             }),
@@ -160,7 +160,7 @@ async function calculateAndPlot() {
 
         if (!response.ok) {
             const errorData = await response.json().catch(() => ({ error: "Kunne ikke læse fejl-JSON" }));
-            throw new Error(errorData.error || `Serverfejl: ${response.status}`);
+            throw new Error(errorData.error || \`Serverfejl: \${response.status}\`);
         }
         
         let data;
@@ -185,7 +185,7 @@ async function calculateAndPlot() {
                     feedbackMessage.innerText = data.feedback;
                 }
             } else {
-                feedbackMessage.innerHTML = `<div class="error-message" style="display: block; margin:0;"><strong>Fejl:</strong> ${data.error || "AI'en returnerede intet svar."}</div>`;
+                feedbackMessage.innerHTML = \`<div class="error-message" style="display: block; margin:0;"><strong>Fejl:</strong> \${data.error || "AI'en returnerede intet svar."}</div>\`;
             }
             feedbackMessage.style.transition = 'opacity 0.5s ease';
             feedbackMessage.style.opacity = '1';
@@ -201,7 +201,18 @@ async function calculateAndPlot() {
             } else if (error.message) {
                 msg = error.message;
             }
-            feedbackMessage.innerHTML = `<div class="error-message" style="display: block; margin:0;"><strong>Systemfejl:</strong> ${msg}</div>`;
+            feedbackMessage.innerHTML = \`
+                <div class="error-message" style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 2.5rem; background-color: #FEF2F2; border: 1px solid #FCA5A5; border-radius: 8px;">
+                    <strong style="color: #991B1B; margin-bottom: 0.5rem; font-size: 1.1rem;">\${msg}</strong>
+                    <button id="retryFeedbackBtn" class="btn" style="background-color: #DC2626; color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 6px; font-weight: bold; cursor: pointer; margin-bottom: 0.75rem; margin-top: 1rem;">Prøv Igen</button>
+                    <span style="color: #DC2626; font-size: 0.95rem;">Der opstod en fejl i kontakten med AI'en. Prøv at trykke igen.</span>
+                </div>
+            \`;
+            const retryBtn = document.getElementById('retryFeedbackBtn');
+            if (retryBtn) {
+                retryBtn.addEventListener('click', calculateAndPlot);
+            }
+            
             feedbackMessage.style.transition = 'opacity 0.5s ease';
             feedbackMessage.style.opacity = '1';
         }, 300);

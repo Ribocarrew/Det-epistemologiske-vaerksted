@@ -78,7 +78,11 @@ Du skal altid stille læreren et nysgerrigt spørgsmål om elevernes tænkning. 
 Du må ikke foreslå, at hele forløbet laves om. Foreslå i stedet én overkommelig og lille forstyrrelse – f.eks. et åbent spørgsmål eller et lille benspænd – læreren nemt kan lægge ind i lektionen for at bryde rutinen i 10 minutter.
 
 **Tag snakken med dit team**
-Afslut altid din feedback med overskriften "**Tag snakken med dit team**". Her skal du formulere 1-2 helt praksisnære spørgsmål, som læreren kan tage med til sit næste teammøde eller til sin pædagogiske vejleder. F.eks.: Hvordan kan vi i fællesskab finde tid til små forstyrrelser i undervisningen, uden at vi stresser over pensum?`;
+Afslut altid din feedback med overskriften "**Tag snakken med dit team**". Her skal du formulere 1-2 helt praksisnære spørgsmål, som læreren kan tage med til sit næste teammøde eller til sin pædagogiske vejleder. F.eks.: Hvordan kan vi i fællesskab finde tid til små forstyrrelser i undervisningen, uden at vi stresser over pensum?
+
+VIGTIGT: Du MÅ KUN returnere dit svar som et gyldigt JSON-objekt. Ingen markdown, ingen code blocks (som f.eks. \`\`\`json). Svaret må kun indeholde en JSON med én key "feedback".
+Format:
+{ "feedback": "Din fulde feedback tekst her med evt. markdown styling (fed/kursiv) inkluderet i selve strengen" }\`;
 
 app.post('/api/generate-feedback', async (req, res) => {
     try {
@@ -86,27 +90,46 @@ app.post('/api/generate-feedback', async (req, res) => {
             return res.status(500).json({ error: "Gemini API nøgle mangler i .env.local" });
         }
 
-        const { cards, quadrant, techRole } = req.body;
+        const { cards, quadrant, techRole, title, intention } = req.body;
         
         if (!cards || !quadrant || !techRole) {
             return res.status(400).json({ error: "Manglende data til feedback-generering." });
         }
 
-        const userPrompt = `
-Lærerens valg af Teknologirolle: ${techRole}
-Beregnet Epistemologisk Kvadrant: ${quadrant}
-Udvalgte didaktiske handlingskort i forløbet:
-${cards.map(c => "- " + c).join('\n')}
+        const userPrompt = \`
+Lærerens Forløbsnavn: \${title || 'Ikke angivet'}
+Lærerens pædagogiske intention med forløbet: "\${intention || 'Ikke angivet'}"
 
-Generer din feedback baseret på ovenstående data i Markdown-format.`;
+Lærerens valg af Teknologirolle: \${techRole}
+Beregnet Epistemologisk Kvadrant: \${quadrant}
+Udvalgte didaktiske handlingskort i forløbet:
+\${cards.map(c => "- " + c).join('\\n')}
+
+Generer din feedback baseret på ovenstående data i Markdown-format. Vurder særligt om de valgte kort og teknologirollen rent faktisk understøtter den angivne pædagogiske intention, eller om der er en diskrepans.\`;
 
         const model = genAI.getGenerativeModel({
             model: "gemini-2.5-flash",
-            systemInstruction: FEEDBACK_SYSTEM_PROMPT
+            systemInstruction: FEEDBACK_SYSTEM_PROMPT,
+            generationConfig: {
+                responseMimeType: "application/json",
+            }
         });
 
         const result = await model.generateContent(userPrompt);
-        const markdownFeedback = result.response.text();
+        let rawText = result.response.text();
+        
+        // Rens eventuel markdown væk
+        rawText = rawText.replace(/\`\`\`json/g, '').replace(/\`\`\`/g, '').trim();
+        
+        let markdownFeedback;
+        try {
+            const data = JSON.parse(rawText);
+            if (!data.feedback) throw new Error("Missing 'feedback' key");
+            markdownFeedback = data.feedback;
+        } catch (error) {
+            console.error("Feedback JSON Parse Error:", error, "Raw text was:", rawText);
+            throw new Error("Kunne ikke aflæse AI'ens svar. Prøv venligst igen.");
+        }
         
         res.json({ feedback: markdownFeedback });
     } catch (error) {
