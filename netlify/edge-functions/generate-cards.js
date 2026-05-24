@@ -1,4 +1,4 @@
-import { GoogleGenerativeAI } from "npm:@google/generative-ai";
+import { GoogleGenerativeAI } from "https://esm.sh/@google/generative-ai";
 
 const SYSTEM_PROMPT = `Du er en didaktisk analytiker. Generer 2-3 pædagogiske didaktiske handlingskort baseret på lærerens intention for et forløb.
 Hvert kort skal foreslå en specifik pædagogisk/didaktisk handling eller et design-valg, der matcher intentionen (f.eks. "Eleverne filmer hinanden", "Læreren gennemgår begreber på tavlen", "Eleverne undersøger lokale vandprøver").

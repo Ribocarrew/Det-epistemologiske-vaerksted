@@ -1,4 +1,4 @@
-import { GoogleGenerativeAI } from "npm:@google/generative-ai";
+import { GoogleGenerativeAI } from "https://esm.sh/@google/generative-ai";
 
 const SYSTEM_PROMPT = `Du er en didaktisk analytiker. Analyser en didaktisk handling ud fra to akser. AKSE X (Epistemologi): -10=Øjets. +10=Håndens. AKSE Y (Friktion): -10=Glat. +10=Friktion. Returner KUN JSON i dette format: {"x":[int],"y":[int],"begrundelse":"[én sætning]"}`;
 
