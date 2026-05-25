@@ -74,7 +74,10 @@ Generer din feedback baseret på ovenstående data. Vurder særligt om de valgte
             }
         });
 
+        console.log("Starter Gemini API kald for feedback...");
         const result = await model.generateContent(userPrompt);
+        console.log("Gemini API kald fuldført! Parser svar...");
+        
         let rawText = result.response.text();
         
         // Rens eventuel markdown væk
@@ -94,11 +97,10 @@ Generer din feedback baseret på ovenstående data. Vurder særligt om de valgte
             headers: { "Content-Type": "application/json" }
         });
     } catch (error) {
-        console.error("API Error:", error);
-        return new Response(JSON.stringify({ error: error.message || "Ukendt serverfejl" }), {
-            status: 500,
-            headers: { 'Content-Type': 'application/json' }
-        });
+        console.error("Fatal backend error:", error);
+        return new Response(JSON.stringify({ 
+            feedback: "Der opstod en uventet timeout eller fejl hos AI'en. Prøv venligst at trykke på knappen igen." 
+        }), { status: 500, headers: { 'Content-Type': 'application/json' } });
     }
 };
 

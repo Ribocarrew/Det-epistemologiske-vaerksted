@@ -157,7 +157,13 @@ async function calculateAndPlot() {
         clearTimeout(timeoutId);
 
         if (!response.ok) {
-            throw new Error(`Netværksfejl fra AI-serveren: ${response.status}`);
+            let errorMsg = \`Netværksfejl fra AI-serveren: \${response.status}\`;
+            try {
+                const errorData = await response.json();
+                if (errorData.feedback) errorMsg = errorData.feedback;
+                else if (errorData.error) errorMsg = errorData.error;
+            } catch (e) {}
+            throw new Error(errorMsg);
         }
         
         const data = await response.json();

@@ -115,11 +115,14 @@ Generer din feedback baseret på ovenstående data i Markdown-format. Vurder sæ
             }
         });
 
+        console.log("Starter Gemini API kald for feedback...");
         const result = await model.generateContent(userPrompt);
+        console.log("Gemini API kald fuldført! Parser svar...");
+        
         let rawText = result.response.text();
         
         // Rens eventuel markdown væk
-        rawText = rawText.replace(/```json/g, '').replace(/```/g, '').trim();
+        rawText = rawText.replace(/\`\`\`json/g, '').replace(/\`\`\`/g, '').trim();
         
         let feedbackContent = "";
         try {
@@ -132,8 +135,10 @@ Generer din feedback baseret på ovenstående data i Markdown-format. Vurder sæ
         
         res.json({ feedback: feedbackContent });
     } catch (error) {
-        console.error("Fejl ved generering af feedback:", error);
-        res.status(500).json({ error: "Kunne ikke generere feedback. Prøv igen." });
+        console.error("Fatal backend error i generate-feedback:", error);
+        res.status(500).json({ 
+            feedback: "Der opstod en uventet timeout eller fejl hos AI'en. Prøv venligst at trykke på knappen igen." 
+        });
     }
 });
 
