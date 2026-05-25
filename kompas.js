@@ -30,6 +30,15 @@ if (savedCustom) {
     } catch(e) {}
 }
 
+// Load starter cards (AI generated based on intention)
+const savedStarter = localStorage.getItem('epistemologisk_starter_cards');
+if (savedStarter) {
+    try {
+        const starterCards = JSON.parse(savedStarter);
+        cards.push(...starterCards);
+    } catch(e) {}
+}
+
 function init() {
     if (courseTitle) {
         const headerTitle = document.getElementById('header-title');
