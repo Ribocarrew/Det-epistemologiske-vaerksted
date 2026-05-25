@@ -408,3 +408,6 @@ function generatePDF() {
     // Call native browser print
     window.print();
 }
+
+// Start app
+document.addEventListener('DOMContentLoaded', init);
