@@ -64,77 +64,90 @@ function init() {
 
     exportPdfBtn.addEventListener('click', generatePDF);
 }
-
 async function calculateAndPlot() {
-    let sumX = 0;
-    let sumY = 0;
-    let sumWeight = 0;
-
-    // Calculate weighted sum
-    mirrorState.forEach(slot => {
-        sumX += slot.x * slot.weight;
-        sumY += slot.y * slot.weight;
-        sumWeight += slot.weight;
-    });
-
-    // Centroid
-    // Avoid division by zero just in case (though weights sum to 12)
-    const centroidX = sumWeight > 0 ? sumX / sumWeight : 0;
-    const centroidY = sumWeight > 0 ? sumY / sumWeight : 0;
-
-    // Determine Quadrant
-    let quadrant = '';
-    let quadrantName = '';
-    
-    if (centroidX < 0 && centroidY < 0) {
-        quadrant = 'IR';
-        quadrantName = 'Instrumentel Reproduktion';
-    } else if (centroidX < 0 && centroidY >= 0) {
-        quadrant = 'AT';
-        quadrantName = 'Adaptiv Træning';
-    } else if (centroidX >= 0 && centroidY < 0) {
-        quadrant = 'SA';
-        quadrantName = 'Skin-Aktivitet';
-    } else {
-        quadrant = 'TB';
-        quadrantName = 'Det Transformative Brud';
-    }
-
-    // Map Technology Role to its full name
-    const roleNames = {
-        'A': 'Det digitale kopirum',
-        'B': 'Det digitale penalhus',
-        'C': 'Det digitale værksted',
-        'D': 'Det analoge rum'
-    };
-    
-    // Update UI Stats
-    resultQuadrant.textContent = quadrantName;
-    resultQuadrant.className = `result-badge badge-${quadrant}`;
-    resultTech.textContent = roleNames[techRole] || `Rolle ${techRole}`;
-
-    // Get Feedback dynamically via AI
-    feedbackMessage.style.opacity = '1';
-    feedbackMessage.style.fontFamily = "'Source Serif 4', serif";
-    feedbackMessage.style.lineHeight = "1.6";
-    feedbackMessage.innerHTML = \`
-        <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 2rem; text-align: center; animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;">
-            <svg class="spinner" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--color-teal)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="animation: spin 1s linear infinite; margin-bottom: 1rem;"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
-            <span style="color: var(--color-teal); font-weight: bold; font-family: var(--font-body);">Genererer din feedback-profil...</span>
-        </div>
-        <style>
-            @keyframes pulse {
-                0%, 100% { opacity: 1; }
-                50% { opacity: .5; }
-            }
-        </style>
-    `;
-
     try {
+        if (!mirrorState || !Array.isArray(mirrorState)) {
+            throw new Error("Kunne ikke læse dine valgte kort (mirrorState mangler eller er ugyldigt).");
+        }
+
+        let sumX = 0;
+        let sumY = 0;
+        let sumWeight = 0;
+
+        // Calculate weighted sum
+        mirrorState.forEach(slot => {
+            if (slot && slot.weight !== undefined) {
+                sumX += slot.x * slot.weight;
+                sumY += slot.y * slot.weight;
+                sumWeight += slot.weight;
+            }
+        });
+
+        // Centroid
+        const centroidX = sumWeight > 0 ? sumX / sumWeight : 0;
+        const centroidY = sumWeight > 0 ? sumY / sumWeight : 0;
+
+        // Determine Quadrant
+        let quadrant = '';
+        let quadrantName = '';
+        
+        if (centroidX < 0 && centroidY < 0) {
+            quadrant = 'IR';
+            quadrantName = 'Instrumentel Reproduktion';
+        } else if (centroidX < 0 && centroidY >= 0) {
+            quadrant = 'AT';
+            quadrantName = 'Adaptiv Træning';
+        } else if (centroidX >= 0 && centroidY < 0) {
+            quadrant = 'SA';
+            quadrantName = 'Skin-Aktivitet';
+        } else {
+            quadrant = 'TB';
+            quadrantName = 'Det Transformative Brud';
+        }
+
+        // Map Technology Role to its full name
+        const roleNames = {
+            'A': 'Det digitale kopirum',
+            'B': 'Det digitale penalhus',
+            'C': 'Det digitale værksted',
+            'D': 'Det analoge rum'
+        };
+        
+        // Update UI Stats safely
+        if (resultQuadrant) {
+            resultQuadrant.textContent = quadrantName;
+            resultQuadrant.className = \`result-badge badge-\${quadrant}\`;
+        }
+        if (resultTech) {
+            resultTech.textContent = roleNames[techRole] || \`Rolle \${techRole}\`;
+        }
+
+        // Plot the dot immediately so the user sees the visual result even while feedback loads
+        plotDot(centroidX, centroidY);
+
+        // Get Feedback dynamically via AI
+        if (feedbackMessage) {
+            feedbackMessage.style.opacity = '1';
+            feedbackMessage.style.fontFamily = "'Source Serif 4', serif";
+            feedbackMessage.style.lineHeight = "1.6";
+            feedbackMessage.innerHTML = \`
+                <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 2rem; text-align: center; animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;">
+                    <svg class="spinner" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--color-teal)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="animation: spin 1s linear infinite; margin-bottom: 1rem;"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
+                    <span style="color: var(--color-teal); font-weight: bold; font-family: var(--font-body);">Genererer din feedback-profil...</span>
+                </div>
+                <style>
+                    @keyframes pulse {
+                        0%, 100% { opacity: 1; }
+                        50% { opacity: .5; }
+                    }
+                </style>
+            \`;
+        }
+
         // Find text for selected cards
         const selectedCardsText = mirrorState.map(slot => {
             const cardObj = cards.find(c => c.id === slot.cardId);
-            return cardObj ? cardObj.text : `Kort ${slot.cardId}`;
+            return cardObj ? cardObj.text : \`Kort \${slot.cardId}\`;
         });
 
         // 30 seconds timeout
@@ -147,7 +160,7 @@ async function calculateAndPlot() {
             body: JSON.stringify({
                 cards: selectedCardsText,
                 quadrant: quadrantName,
-                techRole: roleNames[techRole] || `Rolle ${techRole}`,
+                techRole: roleNames[techRole] || \`Rolle \${techRole}\`,
                 title: courseTitle || 'Ikke angivet',
                 intention: courseIntention || 'Ikke angivet'
             }),
@@ -173,52 +186,55 @@ async function calculateAndPlot() {
         }
 
         // Render feedback
-        feedbackMessage.style.opacity = '0';
-        setTimeout(() => {
-            try {
-                if (typeof marked !== 'undefined') {
-                    feedbackMessage.innerHTML = marked.parse ? marked.parse(data.feedback) : marked(data.feedback);
-                } else {
+        if (feedbackMessage) {
+            feedbackMessage.style.opacity = '0';
+            setTimeout(() => {
+                try {
+                    if (typeof marked !== 'undefined') {
+                        feedbackMessage.innerHTML = marked.parse ? marked.parse(data.feedback) : marked(data.feedback);
+                    } else {
+                        feedbackMessage.innerText = data.feedback;
+                    }
+                } catch (err) {
+                    console.error("Markdown parse error:", err);
                     feedbackMessage.innerText = data.feedback;
                 }
-            } catch (err) {
-                console.error("Markdown parse error:", err);
-                feedbackMessage.innerText = data.feedback;
-            }
-            feedbackMessage.style.transition = 'opacity 0.5s ease';
-            feedbackMessage.style.opacity = '1';
-        }, 50);
-
-    } catch (error) {
-        console.error("Fejl i feedback:", error);
-        
-        let msg = "Der opstod en fejl, da vi forsøgte at hente din feedback.";
-        if (error.name === 'AbortError') {
-            msg = "Anmodningen tog for lang tid (timeout). Gemini API'et kan være overbelastet.";
+                feedbackMessage.style.transition = 'opacity 0.5s ease';
+                feedbackMessage.style.opacity = '1';
+            }, 50);
         }
 
-        feedbackMessage.style.opacity = '0';
-        setTimeout(() => {
-            feedbackMessage.innerHTML = `
-                <div class="error-message" style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 2.5rem; background-color: #FEF2F2; border: 1px solid #FCA5A5; border-radius: 8px;">
-                    <strong style="color: #991B1B; margin-bottom: 0.5rem; font-size: 1.1rem;">${msg}</strong>
-                    <button id="retryFeedbackBtn" class="btn" style="background-color: #DC2626; color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 6px; font-weight: bold; cursor: pointer; margin-bottom: 0.75rem; margin-top: 1rem;">Prøv Igen</button>
-                    <span style="color: #DC2626; font-size: 0.95rem;">Prøv venligst igen.</span>
-                </div>
-            `;
-            
-            const retryBtn = document.getElementById('retryFeedbackBtn');
-            if (retryBtn) {
-                retryBtn.addEventListener('click', calculateAndPlot);
-            }
-            
-            feedbackMessage.style.transition = 'opacity 0.5s ease';
-            feedbackMessage.style.opacity = '1';
-        }, 50);
-    }
+    } catch (error) {
+        console.error("Frontend Crash under feedback-generering:", error);
+        
+        let msg = "Der opstod en lokal fejl i appen.";
+        if (error.name === 'AbortError') {
+            msg = "Anmodningen tog for lang tid (timeout). Gemini API'et kan være overbelastet.";
+        } else if (error.message) {
+            msg = error.message;
+        }
 
-    // Plot SVG
-    plotDot(centroidX, centroidY);
+        if (feedbackMessage) {
+            feedbackMessage.style.opacity = '0';
+            setTimeout(() => {
+                feedbackMessage.innerHTML = \`
+                    <div class="error-message" style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 2.5rem; background-color: #FEF2F2; border: 1px solid #FCA5A5; border-radius: 8px;">
+                        <strong style="color: #991B1B; margin-bottom: 0.5rem; font-size: 1.1rem;">\${msg}</strong>
+                        <button id="retryFeedbackBtn" class="btn" style="background-color: #DC2626; color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 6px; font-weight: bold; cursor: pointer; margin-bottom: 0.75rem; margin-top: 1rem;">Prøv Igen</button>
+                        <span style="color: #DC2626; font-size: 0.95rem;">Prøv venligst igen.</span>
+                    </div>
+                \`;
+                
+                const retryBtn = document.getElementById('retryFeedbackBtn');
+                if (retryBtn) {
+                    retryBtn.addEventListener('click', calculateAndPlot);
+                }
+                
+                feedbackMessage.style.transition = 'opacity 0.5s ease';
+                feedbackMessage.style.opacity = '1';
+            }, 50);
+        }
+    }
 }
 
 function plotDot(x, y) {
