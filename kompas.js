@@ -116,10 +116,10 @@ async function calculateAndPlot() {
         // Update UI Stats safely
         if (resultQuadrant) {
             resultQuadrant.textContent = quadrantName;
-            resultQuadrant.className = \`result-badge badge-\${quadrant}\`;
+            resultQuadrant.className = `result-badge badge-${quadrant}`;
         }
         if (resultTech) {
-            resultTech.textContent = roleNames[techRole] || \`Rolle \${techRole}\`;
+            resultTech.textContent = roleNames[techRole] || `Rolle ${techRole}`;
         }
 
         // Plot the dot immediately so the user sees the visual result even while feedback loads
@@ -130,7 +130,7 @@ async function calculateAndPlot() {
             feedbackMessage.style.opacity = '1';
             feedbackMessage.style.fontFamily = "'Source Serif 4', serif";
             feedbackMessage.style.lineHeight = "1.6";
-            feedbackMessage.innerHTML = \`
+            feedbackMessage.innerHTML = `
                 <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 2rem; text-align: center; animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;">
                     <svg class="spinner" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--color-teal)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="animation: spin 1s linear infinite; margin-bottom: 1rem;"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
                     <span style="color: var(--color-teal); font-weight: bold; font-family: var(--font-body);">Genererer din feedback-profil...</span>
@@ -141,13 +141,13 @@ async function calculateAndPlot() {
                         50% { opacity: .5; }
                     }
                 </style>
-            \`;
+            `;
         }
 
         // Find text for selected cards
         const selectedCardsText = mirrorState.map(slot => {
             const cardObj = cards.find(c => c.id === slot.cardId);
-            return cardObj ? cardObj.text : \`Kort \${slot.cardId}\`;
+            return cardObj ? cardObj.text : `Kort ${slot.cardId}`;
         });
 
         // 30 seconds timeout
@@ -160,7 +160,7 @@ async function calculateAndPlot() {
             body: JSON.stringify({
                 cards: selectedCardsText,
                 quadrant: quadrantName,
-                techRole: roleNames[techRole] || \`Rolle \${techRole}\`,
+                techRole: roleNames[techRole] || `Rolle ${techRole}`,
                 title: courseTitle || 'Ikke angivet',
                 intention: courseIntention || 'Ikke angivet'
             }),
@@ -170,7 +170,7 @@ async function calculateAndPlot() {
         clearTimeout(timeoutId);
 
         if (!response.ok) {
-            let errorMsg = \`Netværksfejl fra AI-serveren: \${response.status}\`;
+            let errorMsg = `Netværksfejl fra AI-serveren: ${response.status}`;
             try {
                 const errorData = await response.json();
                 if (errorData.feedback) errorMsg = errorData.feedback;
@@ -217,13 +217,13 @@ async function calculateAndPlot() {
         if (feedbackMessage) {
             feedbackMessage.style.opacity = '0';
             setTimeout(() => {
-                feedbackMessage.innerHTML = \`
+                feedbackMessage.innerHTML = `
                     <div class="error-message" style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 2.5rem; background-color: #FEF2F2; border: 1px solid #FCA5A5; border-radius: 8px;">
-                        <strong style="color: #991B1B; margin-bottom: 0.5rem; font-size: 1.1rem;">\${msg}</strong>
+                        <strong style="color: #991B1B; margin-bottom: 0.5rem; font-size: 1.1rem;">${msg}</strong>
                         <button id="retryFeedbackBtn" class="btn" style="background-color: #DC2626; color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 6px; font-weight: bold; cursor: pointer; margin-bottom: 0.75rem; margin-top: 1rem;">Prøv Igen</button>
                         <span style="color: #DC2626; font-size: 0.95rem;">Prøv venligst igen.</span>
                     </div>
-                \`;
+                `;
                 
                 const retryBtn = document.getElementById('retryFeedbackBtn');
                 if (retryBtn) {
@@ -375,11 +375,11 @@ function generatePDF() {
         const createCardHTML = (cardObj) => {
             const bg = getBgColor(cardObj.quadrant);
             const border = getBorderColor(cardObj.quadrant);
-            return \`
-                <div style="background-color: \${bg}; border: 1px solid \${border}; border-radius: 6px; padding: 1rem; width: 150px; height: 110px; display: flex; align-items: center; justify-content: center; text-align: center; font-size: 0.75rem; font-weight: 600; color: #1e293b; box-shadow: 0 1px 2px rgba(0,0,0,0.05); overflow: hidden; font-family: Montserrat, sans-serif; box-sizing: border-box; line-height: 1.3;">
-                    \${cardObj.text}
+            return `
+                <div style="background-color: ${bg}; border: 1px solid ${border}; border-radius: 6px; padding: 1rem; width: 150px; height: 110px; display: flex; align-items: center; justify-content: center; text-align: center; font-size: 0.75rem; font-weight: 600; color: #1e293b; box-shadow: 0 1px 2px rgba(0,0,0,0.05); overflow: hidden; font-family: Montserrat, sans-serif; box-sizing: border-box; line-height: 1.3;">
+                    ${cardObj.text}
                 </div>
-            \`;
+            `;
         };
 
         const levels = [
@@ -394,11 +394,11 @@ function generatePDF() {
         levels.forEach(l => {
             const rowCards = weightGroups[l.w];
             if (rowCards.length > 0) {
-                diamondHtml += \`<div style="display: flex; gap: 1.5rem; justify-content: center;">\`;
+                diamondHtml += `<div style="display: flex; gap: 1.5rem; justify-content: center;">`;
                 rowCards.forEach(c => {
                     diamondHtml += createCardHTML(c);
                 });
-                diamondHtml += \`</div>\`;
+                diamondHtml += `</div>`;
             }
         });
         diamondHtml += '</div>';
