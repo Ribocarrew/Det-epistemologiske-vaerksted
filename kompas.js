@@ -128,13 +128,13 @@ async function calculateAndPlot() {
                 50% { opacity: .5; }
             }
         </style>
-    \`;
+    `;
 
     try {
         // Find text for selected cards
         const selectedCardsText = mirrorState.map(slot => {
             const cardObj = cards.find(c => c.id === slot.cardId);
-            return cardObj ? cardObj.text : \`Kort \${slot.cardId}\`;
+            return cardObj ? cardObj.text : `Kort ${slot.cardId}`;
         });
 
         // 30 seconds timeout
@@ -143,13 +143,11 @@ async function calculateAndPlot() {
 
         const response = await fetch('/api/generate-feedback', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 cards: selectedCardsText,
                 quadrant: quadrantName,
-                techRole: roleNames[techRole] || \`Rolle \${techRole}\`,
+                techRole: roleNames[techRole] || `Rolle ${techRole}`,
                 title: courseTitle || 'Ikke angivet',
                 intention: courseIntention || 'Ikke angivet'
             }),
@@ -159,55 +157,50 @@ async function calculateAndPlot() {
         clearTimeout(timeoutId);
 
         if (!response.ok) {
-            const errorData = await response.json().catch(() => ({ error: "Kunne ikke læse fejl-JSON" }));
-            throw new Error(errorData.error || \`Serverfejl: \${response.status}\`);
+            throw new Error(`Netværksfejl fra AI-serveren: ${response.status}`);
         }
         
-        let data;
-        try {
-            data = await response.json();
-        } catch (e) {
-            throw new Error("Serveren returnerede et ugyldigt svar (ikke JSON).");
+        const data = await response.json();
+        
+        if (!data.feedback) {
+            throw new Error("AI'en returnerede intet svar.");
         }
 
+        // Render feedback
         feedbackMessage.style.opacity = '0';
         setTimeout(() => {
-            if (data.feedback) {
-                try {
-                    // Try marked.parse first (newer marked versions), fallback to marked() (older), then plain text
-                    if (typeof marked !== 'undefined') {
-                        feedbackMessage.innerHTML = marked.parse ? marked.parse(data.feedback) : marked(data.feedback);
-                    } else {
-                        feedbackMessage.innerText = data.feedback;
-                    }
-                } catch (err) {
-                    console.error("Markdown parse error:", err);
+            try {
+                if (typeof marked !== 'undefined') {
+                    feedbackMessage.innerHTML = marked.parse ? marked.parse(data.feedback) : marked(data.feedback);
+                } else {
                     feedbackMessage.innerText = data.feedback;
                 }
-            } else {
-                feedbackMessage.innerHTML = \`<div class="error-message" style="display: block; margin:0;"><strong>Fejl:</strong> \${data.error || "AI'en returnerede intet svar."}</div>\`;
+            } catch (err) {
+                console.error("Markdown parse error:", err);
+                feedbackMessage.innerText = data.feedback;
             }
             feedbackMessage.style.transition = 'opacity 0.5s ease';
             feedbackMessage.style.opacity = '1';
-        }, 300);
+        }, 50);
 
     } catch (error) {
-        console.error("Fetch error:", error);
+        console.error("Fejl i feedback:", error);
+        
+        let msg = "Der opstod en fejl, da vi forsøgte at hente din feedback.";
+        if (error.name === 'AbortError') {
+            msg = "Anmodningen tog for lang tid (timeout). Gemini API'et kan være overbelastet.";
+        }
+
         feedbackMessage.style.opacity = '0';
         setTimeout(() => {
-            let msg = "Der opstod en uventet fejl ved kontakt til serveren.";
-            if (error.name === 'AbortError') {
-                msg = "Anmodningen tog for lang tid (timeout). Gemini API'et kan være overbelastet.";
-            } else if (error.message) {
-                msg = error.message;
-            }
-            feedbackMessage.innerHTML = \`
+            feedbackMessage.innerHTML = `
                 <div class="error-message" style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 2.5rem; background-color: #FEF2F2; border: 1px solid #FCA5A5; border-radius: 8px;">
-                    <strong style="color: #991B1B; margin-bottom: 0.5rem; font-size: 1.1rem;">\${msg}</strong>
+                    <strong style="color: #991B1B; margin-bottom: 0.5rem; font-size: 1.1rem;">${msg}</strong>
                     <button id="retryFeedbackBtn" class="btn" style="background-color: #DC2626; color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 6px; font-weight: bold; cursor: pointer; margin-bottom: 0.75rem; margin-top: 1rem;">Prøv Igen</button>
-                    <span style="color: #DC2626; font-size: 0.95rem;">Der opstod en fejl i kontakten med AI'en. Prøv at trykke igen.</span>
+                    <span style="color: #DC2626; font-size: 0.95rem;">Prøv venligst igen.</span>
                 </div>
-            \`;
+            `;
+            
             const retryBtn = document.getElementById('retryFeedbackBtn');
             if (retryBtn) {
                 retryBtn.addEventListener('click', calculateAndPlot);
@@ -215,7 +208,7 @@ async function calculateAndPlot() {
             
             feedbackMessage.style.transition = 'opacity 0.5s ease';
             feedbackMessage.style.opacity = '1';
-        }, 300);
+        }, 50);
     }
 
     // Plot SVG

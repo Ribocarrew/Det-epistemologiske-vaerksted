@@ -119,19 +119,18 @@ Generer din feedback baseret på ovenstående data i Markdown-format. Vurder sæ
         let rawText = result.response.text();
         
         // Rens eventuel markdown væk
-        rawText = rawText.replace(/\`\`\`json/g, '').replace(/\`\`\`/g, '').trim();
+        rawText = rawText.replace(/```json/g, '').replace(/```/g, '').trim();
         
-        let markdownFeedback;
+        let feedbackContent = "";
         try {
             const data = JSON.parse(rawText);
-            if (!data.feedback) throw new Error("Missing 'feedback' key");
-            markdownFeedback = data.feedback;
+            feedbackContent = data.feedback || rawText; // Brug JSON, eller fallback til raw hvis 'feedback' mangler
         } catch (error) {
-            console.error("Feedback JSON Parse Error:", error, "Raw text was:", rawText);
-            throw new Error("Kunne ikke aflæse AI'ens svar. Prøv venligst igen.");
+            console.warn("JSON Parse fejlede. Bruger rå tekst som fallback.");
+            feedbackContent = rawText; // Fallback: Send bare teksten direkte
         }
         
-        res.json({ feedback: markdownFeedback });
+        res.json({ feedback: feedbackContent });
     } catch (error) {
         console.error("Fejl ved generering af feedback:", error);
         res.status(500).json({ error: "Kunne ikke generere feedback. Prøv igen." });
