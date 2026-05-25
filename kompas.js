@@ -376,7 +376,7 @@ function generatePDF() {
             const bg = getBgColor(cardObj.quadrant);
             const border = getBorderColor(cardObj.quadrant);
             return `
-                <div style="background-color: ${bg}; border: 1px solid ${border}; border-radius: 6px; padding: 1rem; width: 150px; height: 110px; display: flex; align-items: center; justify-content: center; text-align: center; font-size: 0.75rem; font-weight: 600; color: #1e293b; box-shadow: 0 1px 2px rgba(0,0,0,0.05); overflow: hidden; font-family: Montserrat, sans-serif; box-sizing: border-box; line-height: 1.3;">
+                <div style="background-color: ${bg}; border: 1px solid ${border}; border-radius: 6px; padding: 0.5rem; width: 130px; height: 90px; display: flex; align-items: center; justify-content: center; text-align: center; font-size: 0.65rem; font-weight: 600; color: #1e293b; box-shadow: 0 1px 2px rgba(0,0,0,0.05); overflow: hidden; font-family: Montserrat, sans-serif; box-sizing: border-box; line-height: 1.25;">
                     ${cardObj.text}
                 </div>
             `;
@@ -390,11 +390,11 @@ function generatePDF() {
             { w: 0 }
         ];
 
-        let diamondHtml = '<div style="display: flex; flex-direction: column; align-items: center; gap: 1.5rem; width: 100%; padding: 1rem 0;">';
+        let diamondHtml = '<div style="display: flex; flex-direction: column; align-items: center; gap: 0.5rem; width: 100%; padding: 0; page-break-inside: avoid; transform: scale(0.95); transform-origin: top center;">';
         levels.forEach(l => {
             const rowCards = weightGroups[l.w];
             if (rowCards.length > 0) {
-                diamondHtml += `<div style="display: flex; gap: 1.5rem; justify-content: center;">`;
+                diamondHtml += `<div style="display: flex; gap: 0.5rem; justify-content: center;">`;
                 rowCards.forEach(c => {
                     diamondHtml += createCardHTML(c);
                 });
