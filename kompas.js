@@ -414,8 +414,17 @@ function generatePDF() {
         pdfDiamondContent.innerHTML = diamondHtml;
     }
 
+    // 4. Update document title for PDF filename
+    const originalTitle = document.title;
+    document.title = courseTitle ? `Mit Epistemologiske Kompas - ${courseTitle}` : `Mit Epistemologiske Kompas`;
+
     // Call native browser print
     window.print();
+
+    // Restore original title
+    setTimeout(() => {
+        document.title = originalTitle;
+    }, 1000);
 }
 
 // Start app
